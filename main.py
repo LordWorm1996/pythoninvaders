@@ -1,5 +1,6 @@
 import pygame
 import sys
+import pygame_menu
 
 import fonts
 import enemies
@@ -11,31 +12,23 @@ import variables
 import weapons
 
 pygame.init()
+music.init_music()
 
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-pygame.display.set_caption("Fullscreen Red Window")
+pygame.display.set_caption("Python Invaders")
 
-music.init_music()
-music.play_theme()
+menu = pygame_menu.Menu(
+    "Python Invaders", 400, 300, theme=pygame_menu.themes.THEME_BLUE
+)
 
 running = True
 is_paused = False
 while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_ESCAPE:
-                running = False
-            elif event.key == pygame.K_p:
-                if is_paused:
-                    music.unpause_theme()
-                    is_paused = False
-                else:
-                    music.pause_theme()
-                    is_paused = True
+    menu.add.text_input("Name :", default="Jane Doe")
+    menu.add.button("Play", music.play_theme())
+    menu.add.button("Quit", pygame_menu.events.EXIT)
 
-    screen.fill((255, 0, 0))
+    menu.mainloop(screen)
 
     pygame.display.flip()
 
