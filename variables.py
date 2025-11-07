@@ -7,6 +7,8 @@ speed = 1
 health_regen = 0
 ultimate_regen = 1
 ultimate_full = 100
+health_on_kill = 0
+ult_on_kill = 2
 
 random_multiplier = random.randint(1, 10)
 elite_enemy_multiplier = 10
@@ -20,4 +22,6 @@ big_ultimate_pack = 20
 health_booster = 1
 health_regen_booster = 1
 ultimate_regen_booster = 1
+health_on_kill_boost = 1
+ult_on_kill_boost = 1
 ultimate_boost = -1
