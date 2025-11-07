@@ -26,6 +26,7 @@ is_paused = False
 while running:
     menu.add.text_input("Name :", default="Jane Doe")
     menu.add.button("Play", music.play_theme())
+    menu.add.button("Skilltree", skilltree.skilltree_menu(screen))
     menu.add.button("Quit", pygame_menu.events.EXIT)
 
     menu.mainloop(screen)
