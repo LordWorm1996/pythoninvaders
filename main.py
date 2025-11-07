@@ -13,6 +13,7 @@ import weapons
 
 pygame.init()
 music.init_music()
+fonts.init_font()
 
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 pygame.display.set_caption("Python Invaders")
@@ -35,5 +36,6 @@ while running:
 
 music.stop_theme()
 music.unload_theme()
+fonts.quit_font()
 pygame.quit()
 sys.exit()
