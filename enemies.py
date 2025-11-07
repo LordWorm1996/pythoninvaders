@@ -1,87 +1,100 @@
-from tkinter import Variable
 import pygame
 import variables
 
 
-def red_enemy():
-    health = variables.health
-    speed = variables.speed
-    damage = variables.damage
+class Enemy:
+    def __init__(self, color="red"):
+        self.color = color.lower()
+        self.health = variables.health
+        self.speed = variables.speed
+        self.damage = variables.damage
+        self.random_multiplier = variables.random_multiplier
+
+        self.apply_color_modifiers()
+
+    def apply_color_modifiers(self):
+        match self.color:
+            case "red":
+                pass
+            case "yellow":
+                self.speed *= 5
+                self.damage -= 0.5
+            case "orange":
+                self.health *= 10
+                self.speed -= 0.5
+                self.damage = 0
+            case "green":
+                self.health += 1
+                self.speed += 1
+                self.damage += 1
+            case "blue":
+                self.health += 5
+                self.speed += 2
+                self.damage += 2
+            case "purple":
+                self.health += 10
+                self.speed += 2
+                self.damage += 5
+            case "special":
+                self.health *= self.random_multiplier
+                self.speed *= self.random_multiplier
+                self.damage *= self.random_multiplier
+            case _:
+                raise ValueError(f"Unknown enemy color: {self.color}")
+
+    def __repr__(self):
+        return f"Enemy(color={self.color}, health={self.health}, speed={self.speed}, damage={self.damage})"
 
 
-def yellow_enemy():
-    health = variables.health
-    speed = variables.speed * 5
-    damage = variables.damage - 0.5
+class Boss:
+    def __init__(self, color="red"):
+        self.color = color.lower()
+        self.health = variables.health * variables.boss_multiplier
+        self.speed = variables.speed
+        self.damage = variables.damage
+        self.random_multiplier = variables.random_multiplier
+
+        self.apply_color_modifiers()
+
+    def apply_color_modifiers(self):
+        match self.color:
+            case "red":
+                pass
+            case "yellow":
+                self.speed *= 5
+                self.damage -= 0.5
+            case "orange":
+                self.health *= 5
+            case "green":
+                self.speed += 2
+                self.damage += 2
+            case "blue":
+                self.speed += 5
+                self.damage += 5
+            case "purple":
+                self.speed += 5
+                self.damage += 10
+            case "final":
+                self.health = variables.health * variables.final_boss_multiplier
+                self.speed += 5
+                self.damage *= self.random_multiplier
+            case _:
+                raise ValueError(f"Unknown boss color: {self.color}")
+
+    def __repr__(self):
+        return f"Boss(color={self.color}, health={self.health}, speed={self.speed}, damage={self.damage})"
 
 
-def orange_enemy():
-    health = variables.health * 10
-    speed = variables.speed - 0.5
-    damage = 0
+class Spawner:
+    @staticmethod
+    def create(enemy_type="enemy", color="red"):
+        enemy_type = enemy_type.lower()
+        color = color.lower()
 
-
-def green_enemy():
-    health = variables.health + 1
-    speed = variables.speed + 1
-    damage = variables.damage + 1
-
-
-def blue_enemy():
-    health = variables.health + 5
-    speed = variables.speed + 2
-    damage = variables.damage + 2
-
-
-def purple_enemy():
-    health = variables.health + 10
-    speed = variables.speed + 2
-    damage = variables.damage + 5
-
-
-def special_enemy():
-    health = variables.health * variables.random_multiplier
-    speed = variables.speed * variables.random_multiplier
-    damage = variables.damage * variables.random_multiplier
-
-
-def red_boss():
-    health = variables.health * variables.boss_multiplier
-    speed = variables.speed
-    damage = variables.damage
-
-
-def yellow_boss():
-    health = variables.health * variables.boss_multiplier
-    speed = variables.speed * 5
-    damage = variables.damage - 0.5
-
-
-def orange_boss():
-    health = variables.health * 5 * variables.boss_multiplier
-    speed = variables.speed
-    damage = variables.damage
-
-
-def green_boss():
-    health = variables.health * variables.boss_multiplier
-    speed = variables.speed + 2
-    damage = variables.damage + 2
-
-
-def blue_boss():
-    health = variables.health * variables.boss_multiplier
-    speed = variables.speed + 5
-    damage = variables.damage + 5
-
-
-def purple_boss():
-    health = variables.health * variables.boss_multiplier
-    speed = variables.speed + 5
-    damage = variables.damage + 10
-
-
-def final_boss():
-    health = variables.health * variables.final_boss_multiplier
-    speed = variables.speed + 5
-    damage = variables.damage * variables.random_multiplier
+        match enemy_type:
+            case "enemy":
+                return Enemy(color)
+            case "boss":
+                return Boss(color)
+            case _:
+                raise ValueError(f"Unknown enemy type: {enemy_type}")
