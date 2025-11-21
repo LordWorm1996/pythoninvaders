@@ -25,3 +25,7 @@ ultimate_regen_booster = 1
 health_on_kill_boost = 1
 ult_on_kill_boost = 1
 ultimate_boost = -1
+
+# Difficulty multiplier for enemy attack chance (0.0 to 1.0)
+# Higher values = enemies attack more frequently
+difficulty = 0.2  # Default: 50% of base attack chance
