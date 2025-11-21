@@ -1,3 +1,4 @@
+"""
 import pygame
 import variables
 
@@ -98,3 +99,4 @@ class Spawner:
                 return Boss(color)
             case _:
                 raise ValueError(f"Unknown enemy type: {enemy_type}")
+"""

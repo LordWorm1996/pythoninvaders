@@ -1,6 +1,6 @@
 import pygame
+
 import fonts
-import pygame_menu
 
 skills = {
     "Strength": {"pos": (200, 300), "unlocked": True, "next": ["Power Strike"]},
@@ -13,19 +13,19 @@ fonts.init_font()
 FONT = fonts.spawn_font("arial", 24)
 
 
-def draw_skill_tree(surface):
+def draw_skill_tree(screen):
     for name, data in skills.items():
         for next_skill in data["next"]:
             start = data["pos"]
             end = skills[next_skill]["pos"]
-            pygame.draw.line(surface, (100, 100, 100), start, end, 3)
+            pygame.draw.line(screen, (100, 100, 100), start, end, 3)
 
     for name, data in skills.items():
         color = (0, 200, 0) if data["unlocked"] else (200, 0, 0)
-        pygame.draw.circle(surface, color, data["pos"], 40)
+        pygame.draw.circle(screen, color, data["pos"], 40)
         text = FONT.render(name, True, (255, 255, 255))
         text_rect = text.get_rect(center=data["pos"])
-        surface.blit(text, text_rect)
+        screen.blit(text, text_rect)
 
 
 def on_skill_click(name):
