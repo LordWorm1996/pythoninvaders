@@ -25,7 +25,7 @@ class Player(Entity):
         self.drift_enabled = False
         self.drift_decay_rate = 5.0
         self.drift_stop_threshold = 10.0
-        self.invincibility_duration = 1000
+        self.invincibility_duration = 0
         self.invincible_until = 0
         self.invincibility_color = (255, 255, 255, 120)
         self.invincibility_radius_padding = 8
