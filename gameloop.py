@@ -1,11 +1,15 @@
 import pygame
-from classes.player import Player
-from classes.wave_spawner import WaveSpawner
-from classes.combat_manager import CombatManager
-from classes.enemy_manager import EnemyManager
-from classes.ui import UI
-from classes.debug_menu import DebugMenu
+
 from background import ScrollingBackground
+from classes.combat_manager import CombatManager
+from classes.debug_menu import DebugMenu
+from classes.enemy_manager import EnemyManager
+from classes.player import Player
+from classes.ui import UI
+from classes.wave_spawner import WaveSpawner
+from skilltree import add_skill_points
+
+add_skill_points(3)
 
 
 def start_game(screen):
@@ -31,11 +35,15 @@ def start_game(screen):
     )
     all_sprites = pygame.sprite.Group(player)
 
-    combat_manager = CombatManager(player, player_bullets, enemies, enemy_bullets, enemy_drops)
+    combat_manager = CombatManager(
+        player, player_bullets, enemies, enemy_bullets, enemy_drops
+    )
     enemy_manager = EnemyManager(enemies, enemy_bullets)
     ui = UI(screen)
     debug_menu = DebugMenu(screen)
-    wave_spawner = WaveSpawner(screen.get_width(), screen.get_height(), xml_path="waves.xml")
+    wave_spawner = WaveSpawner(
+        screen.get_width(), screen.get_height(), xml_path="waves.xml"
+    )
 
     running = True
     while running:
