@@ -1,5 +1,6 @@
-import pygame
 import random
+
+import pygame
 
 health = 1
 damage = 1
@@ -17,6 +18,7 @@ final_boss_multiplier = 500
 
 health_pack = 1
 big_health_pack = 2
+boss_health_pack = 10
 ultimate_pack = 10
 big_ultimate_pack = 20
 health_booster = 1
