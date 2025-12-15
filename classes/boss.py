@@ -1,17 +1,16 @@
 import random
-from statistics import variance
 
 import pygame
 
 import variables
 from classes.attack_patterns import straight_pattern
+from classes.boss_drop import BossDrop
 from classes.bullet import Bullet, LaserBeam, ThunderBullet
-from classes.enemy_drop import EnemyDrop
 from classes.entity import Entity
 from classes.weapon import Weapon
 
 
-class Enemy(Entity):
+class Boss(Entity):
     def __init__(
         self,
         x,
@@ -27,12 +26,12 @@ class Enemy(Entity):
     ):
         if image is None:
             image = pygame.Surface((40, 40))
-            image.fill((255, 0, 0))
+            image.fill((255, 255, 0))
             pygame.draw.polygon(image, (200, 0, 0), [(20, 40), (0, 0), (40, 0)])
 
         super().__init__(x, y, image)
-        self.max_health = health
-        self.health = health
+        self.max_health = health * variables.boss_multiplier
+        self.health = health * variables.boss_multiplier
         self.damage = damage
         self.speed = speed
         self.vel = pygame.math.Vector2(0, 0)
@@ -85,18 +84,12 @@ class Enemy(Entity):
 
         self.health -= damage_amount
         if self.health <= 0:
-            drop_type = random.choices(
-                population=["no_drop", "health_pack", "big_health_pack"],
-                weights=[
-                    variables.no_drop_chance,
-                    variables.health_chance,
-                    variables.big_health_chance,
-                ],
-                k=1,
-            )[0]
-            drop = EnemyDrop(self.rect.centerx, self.rect.centery, drop_type)
+            x, y = self.rect.center
+            BossDrop(x, y, "boss_health_pack")
+            BossDrop(x + 30, y, "boss_ultimate_pack")
+            BossDrop(x - 30, y, "weapon_types")  # needs implementation
             self.kill()
-            return True, drop
+            return True
         return False, None
 
     def attack(self, target_pos):
@@ -114,7 +107,7 @@ class Enemy(Entity):
             if direction.length() == 0:
                 return
             direction = direction.normalize()
-        self.weapon.fire(self.rect.center, direction, self.bullets_group, owner="enemy")
+        self.weapon.fire(self.rect.center, direction, self.bullets_group, owner="boss")
 
     def update(self, dt, screen_size=None, target_pos=None):
         if self.bullets_group is not None and random.random() < self.attack_chance:

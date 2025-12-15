@@ -3,24 +3,36 @@ import pygame
 import variables
 
 
-class EnemyDrop(pygame.sprite.Sprite):
+class BossDrop(pygame.sprite.Sprite):
     DROP_TYPES = {
-        "health_pack": ((0, 255, 0), 15, variables.health_pack),
-        "big_health_pack": ((0, 200, 0), 20, variables.big_health_pack),
-        "ultimate_pack": ((255, 0, 0), 15, variables.ultimate_pack),
-        "big_ultimate_pack": ((255, 0, 0), 20, variables.big_ultimate_pack),
+        "boss_health_pack": ((0, 200, 0), 20, variables.boss_health_pack),
+        "boss_ultimate_pack": ((0, 200, 0), 20, variables.boss_ultimate_pack),
+        "thunder_weapon": (
+            (0, 255, 255),
+            15,
+        ),
+        "grenade_weapon": (
+            (0, 255, 255),
+            15,
+        ),
+        "stun_weapon": (
+            (0, 255, 255),
+            15,
+        ),
+        "laser_weapon": (
+            (0, 255, 255),
+            15,
+        ),
     }
 
-    def __new__(cls, x, y, drop_type):
-        if drop_type == "no_drop":
-            return None
-        return super().__new__(cls)
-
-    def __init__(self, x, y, drop_type):
+    def __init__(self, x, y, drop_type="boss_health_pack"):
         super().__init__()
-
-        color, size, value = self.DROP_TYPES[drop_type]
-        self.drop_type = drop_type
+        color, size, value = self.DROP_TYPES.get(
+            drop_type, self.DROP_TYPES["boss_health_pack"]
+        )
+        self.drop_type = (
+            drop_type if drop_type in self.DROP_TYPES else "boss_health_pack"
+        )
         self.value = value
 
         self.image = pygame.Surface((size, size), pygame.SRCALPHA)

@@ -6,7 +6,7 @@ main_theme = "game_assets/sound_files/test_music.mp3"
 def init_music():
     pygame.mixer.init()
     pygame.mixer.music.load(main_theme)
-    pygame.mixer.music.set_volume(1.0)
+    pygame.mixer.music.set_volume(0.5)
 
 
 def play_theme():

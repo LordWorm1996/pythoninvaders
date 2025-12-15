@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<waves>
+    <wave number="1">
+        <grid
+            rows="2"
+            cols="5"
+            start_x="100"
+            start_y="50"
+            spacing_x="120"
+            spacing_y="60"
+            health="1"
+            attack_pattern="thunder"
+            damage="1"
+            aim="down"
+        >
+        </grid>
+        <enemy
+            x="400"
+            y="120"
+            health="4"
+            attack_pattern="thunder"
+            damage="3"
+            aim="player"
+        />
+    </wave>
+</waves>
