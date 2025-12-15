@@ -84,10 +84,12 @@ class Boss(Entity):
 
         self.health -= damage_amount
         if self.health <= 0:
-            drop_type = "big_health_pack" if random.random() < 0.3 else "health_pack"
-            drop = BossDrop(self.rect.centerx, self.rect.centery, drop_type)
+            x, y = self.rect.center
+            BossDrop(x, y, "boss_health_pack")
+            BossDrop(x + 30, y, "boss_ultimate_pack")
+            BossDrop(x - 30, y, "weapon_types")  # needs implementation
             self.kill()
-            return True, drop
+            return True
         return False, None
 
     def attack(self, target_pos):

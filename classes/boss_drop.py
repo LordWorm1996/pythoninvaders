@@ -6,7 +6,23 @@ import variables
 class BossDrop(pygame.sprite.Sprite):
     DROP_TYPES = {
         "boss_health_pack": ((0, 200, 0), 20, variables.boss_health_pack),
-        "boss_weapon": (()),
+        "boss_ultimate_pack": ((0, 200, 0), 20, variables.boss_ultimate_pack),
+        "thunder_weapon": (
+            (0, 255, 255),
+            15,
+        ),
+        "grenade_weapon": (
+            (0, 255, 255),
+            15,
+        ),
+        "stun_weapon": (
+            (0, 255, 255),
+            15,
+        ),
+        "laser_weapon": (
+            (0, 255, 255),
+            15,
+        ),
     }
 
     def __init__(self, x, y, drop_type="boss_health_pack"):

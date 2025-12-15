@@ -6,4 +6,3 @@ class EnemyManager:
     def update(self, dt, screen_size, player_pos):
         for enemy in list(self.enemies):
             enemy.update(dt, screen_size, target_pos=player_pos)
-

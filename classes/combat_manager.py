@@ -1,10 +1,14 @@
 import random
+
 import pygame
+
 from classes.bullet import LightningArc
 
 
 class CombatManager:
-    def __init__(self, player, player_bullets, enemies, enemy_bullets, enemy_drops=None):
+    def __init__(
+        self, player, player_bullets, enemies, enemy_bullets, enemy_drops=None
+    ):
         self.player = player
         self.player_bullets = player_bullets
         self.enemies = enemies
@@ -19,7 +23,9 @@ class CombatManager:
             self.handle_player_vs_drops()
 
     def handle_player_bullets_vs_enemies(self):
-        hits = pygame.sprite.groupcollide(self.player_bullets, self.enemies, False, False)
+        hits = pygame.sprite.groupcollide(
+            self.player_bullets, self.enemies, False, False
+        )
         processed_enemies = set()
         for bullet, enemy_list in hits.items():
             for enemy in enemy_list:
@@ -28,12 +34,12 @@ class CombatManager:
                     continue
                 processed_enemies.add(enemy_id)
                 destroyed, drop = enemy.take_damage(bullet.damage)
-                if hasattr(bullet, 'stick_to'):
+                if hasattr(bullet, "stick_to"):
                     bullet.stick_to(enemy)
                 if destroyed and drop is not None and self.enemy_drops is not None:
                     self.enemy_drops.add(drop)
                 self.trigger_bullet_enemy_effect(bullet, enemy)
-            if not getattr(bullet, 'persistent', False):
+            if not getattr(bullet, "persistent", False):
                 bullet.kill()
 
     def handle_enemy_bullets_vs_player(self):
@@ -41,10 +47,10 @@ class CombatManager:
         total_damage = 0
         for bullet in hits:
             total_damage += bullet.damage
-            if hasattr(bullet, 'stick_to'):
+            if hasattr(bullet, "stick_to"):
                 bullet.stick_to(self.player)
             self.trigger_bullet_player_effect(bullet)
-            if not getattr(bullet, 'persistent', False):
+            if not getattr(bullet, "persistent", False):
                 bullet.kill()
         if total_damage:
             self.player.take_damage(total_damage)
@@ -60,31 +66,39 @@ class CombatManager:
     def handle_player_vs_drops(self):
         hits = pygame.sprite.spritecollide(self.player, self.enemy_drops, True)
         for drop in hits:
-            if drop.drop_type in {'health_pack', 'big_health_pack'}:
+            if drop.drop_type in {"health_pack", "big_health_pack"}:
                 self.player.heal(drop.value)
+            if drop.drop_type in {
+                "boss_health_pack",
+                "boss_ultimate_pack",
+                "boss_weapon",
+            }:
+                self.player.heal(drop.value)
+                self.player.charge(drop.value)  # ult needs implementation
+                # self.player_bullets.(assign.weapon) kinda puzzled here
 
     def trigger_bullet_enemy_effect(self, bullet, primary_enemy):
-        profile = getattr(bullet, 'effect_profile', None)
-        if not profile or profile.get('type') != 'thunder':
+        profile = getattr(bullet, "effect_profile", None)
+        if not profile or profile.get("type") != "thunder":
             return
         self.apply_thunder_chain(primary_enemy, profile, initial_damage=bullet.damage)
 
     def trigger_bullet_player_effect(self, bullet):
-        profile = getattr(bullet, 'status_effect_profile', None)
-        if not profile or profile.get('type') != 'thunder_shock':
+        profile = getattr(bullet, "status_effect_profile", None)
+        if not profile or profile.get("type") != "thunder_shock":
             return
         self.player.apply_random_thunder_debuff(profile)
 
     def apply_thunder_chain(self, initial_enemy, profile, initial_damage):
-        max_targets = profile.get('max_targets', 0)
+        max_targets = profile.get("max_targets", 0)
         if max_targets <= 0:
             return
-        chain_radius = profile.get('chain_radius', 200)
-        damage_multiplier = profile.get('damage_multiplier', 0.75)
-        decay = profile.get('decay', 0.8)
-        arc_color = profile.get('arc_color', (120, 220, 255))
-        arc_core = profile.get('arc_core', (255, 255, 255))
-        jitter = profile.get('jitter', 18)
+        chain_radius = profile.get("chain_radius", 200)
+        damage_multiplier = profile.get("damage_multiplier", 0.75)
+        decay = profile.get("decay", 0.8)
+        arc_color = profile.get("arc_color", (120, 220, 255))
+        arc_core = profile.get("arc_core", (255, 255, 255))
+        jitter = profile.get("jitter", 18)
 
         remaining_targets = max_targets
         last_enemy = initial_enemy
@@ -100,7 +114,14 @@ class CombatManager:
             destroyed, drop = target.take_damage(dmg_amount)
             if destroyed and drop is not None and self.enemy_drops is not None:
                 self.enemy_drops.add(drop)
-            self.render_lightning_arc(last_enemy.rect.center, target.rect.center, arc_color, arc_core, jitter, owner='player')
+            self.render_lightning_arc(
+                last_enemy.rect.center,
+                target.rect.center,
+                arc_color,
+                arc_core,
+                jitter,
+                owner="player",
+            )
             last_enemy = target
             remaining_targets -= 1
             damage = max(1, damage * decay)
@@ -124,10 +145,11 @@ class CombatManager:
         candidates.sort(key=lambda entry: entry[0])
         return candidates[0][1]
 
-    def render_lightning_arc(self, start, end, color, core_color, jitter, owner='player'):
+    def render_lightning_arc(
+        self, start, end, color, core_color, jitter, owner="player"
+    ):
         arc = LightningArc(start, end, color, core_color, jitter, owner=owner)
-        if owner == 'player':
+        if owner == "player":
             self.player_bullets.add(arc)
         else:
             self.enemy_bullets.add(arc)
-

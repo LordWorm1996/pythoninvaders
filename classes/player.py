@@ -1,19 +1,37 @@
 import random
+
 import pygame
+
+from classes.attack_patterns import (
+    laser_pattern,
+    spread_pattern,
+    straight_pattern,
+    thunder_pattern,
+)
+from classes.bullet import Bullet, GrenadeBullet, LaserBeam, ThunderBullet
 from classes.entity import Entity
 from classes.weapon import Weapon
-from classes.bullet import Bullet, LaserBeam, GrenadeBullet, ThunderBullet
-from classes.attack_patterns import straight_pattern, spread_pattern, laser_pattern, thunder_pattern
 
 
 class Player(Entity):
-    def __init__(self, x, y, image, speed=300, bullets_group=None, max_health=100):
+    def __init__(
+        self,
+        x,
+        y,
+        image,
+        speed=300,
+        bullets_group=None,
+        max_health=100,
+        max_ultimate=100,
+    ):
         super().__init__(x, y, image.copy())
         self.base_image = self.image.copy()
         self.speed = speed
         self.bullets_group = bullets_group
         self.max_health = max_health
         self.health = max_health
+        self.max_ultimate = max_ultimate
+        self.ultimate = max_ultimate
         self.weapons = []
         self.current_weapon_index = 0
         self.switch_pressed = False
@@ -56,8 +74,8 @@ class Player(Entity):
     def handle_input(self, dt):
         keys = pygame.key.get_pressed()
         move_vector = pygame.math.Vector2(0, 0)
-        stunned = self.has_status('stun')
-        inverted = self.has_status('inverted_controls')
+        stunned = self.has_status("stun")
+        inverted = self.has_status("inverted_controls")
 
         if keys[pygame.K_q]:
             if not self.switch_pressed:
@@ -90,7 +108,6 @@ class Player(Entity):
             self.apply_drift(dt)
         else:
             self.vel.xy = (0, 0)
-
 
         if keys[pygame.K_1]:
             self.set_shot_count(1)
@@ -137,7 +154,7 @@ class Player(Entity):
 
     def get_fire_positions(self):
         default_position = (self.rect.centerx, self.rect.top)
-        if not getattr(self, 'multi_shot_enabled', True):
+        if not getattr(self, "multi_shot_enabled", True):
             return [default_position]
 
         if self.shot_count <= 1:
@@ -172,7 +189,9 @@ class Player(Entity):
         radius = min(max_radius, radius)
         center = (self.image.get_width() // 2, self.image.get_height() // 2)
         pygame.draw.circle(overlay, self.invincibility_color, center, radius, width=2)
-        pygame.draw.circle(overlay, (*self.invincibility_color[:3], 40), center, radius - 2)
+        pygame.draw.circle(
+            overlay, (*self.invincibility_color[:3], 40), center, radius - 2
+        )
         self.image.blit(overlay, (0, 0))
 
     def initialize_weapons(self):
@@ -181,58 +200,68 @@ class Player(Entity):
 
         self.weapons = [
             {
-                'name': 'Blaster',
-                'kind': 'weapon',
-                'weapon': Weapon(Bullet, {'speed': 500, 'damage': 1}, 0.2, straight_pattern),
+                "name": "Blaster",
+                "kind": "weapon",
+                "weapon": Weapon(
+                    Bullet, {"speed": 500, "damage": 1}, 0.2, straight_pattern
+                ),
             },
             {
-                'name': 'Spread',
-                'kind': 'weapon',
-                'weapon': Weapon(Bullet, {'speed': 450, 'damage': 1}, 0.35, spread_pattern),
+                "name": "Spread",
+                "kind": "weapon",
+                "weapon": Weapon(
+                    Bullet, {"speed": 450, "damage": 1}, 0.35, spread_pattern
+                ),
             },
             {
-                'name': 'Laser',
-                'kind': 'weapon',
-                'weapon': Weapon(
+                "name": "Laser",
+                "kind": "weapon",
+                "weapon": Weapon(
                     LaserBeam,
-                    {'damage': 3, 'duration': 2000, 'length': 450, 'width': 10, 'color': (0, 255, 200)},
+                    {
+                        "damage": 3,
+                        "duration": 2000,
+                        "length": 450,
+                        "width": 10,
+                        "color": (0, 255, 200),
+                    },
                     0.8,
                     laser_pattern,
                 ),
             },
             {
-                'name': 'Grenade Launcher',
-                'kind': 'grenade',
-                'weapon': Weapon(
+                "name": "Grenade Launcher",
+                "kind": "grenade",
+                "weapon": Weapon(
                     GrenadeBullet,
                     {
-                        'speed': 420,
-                        'damage': 0,
-                        'deceleration': 520,
-                        'explosion_radius': 100,
-                        'explosion_damage': 6,
-                        'hover_time': 6.0,
+                        "speed": 420,
+                        "damage": 0,
+                        "deceleration": 520,
+                        "explosion_radius": 100,
+                        "explosion_damage": 6,
+                        "hover_time": 6.0,
                     },
                     0.4,
                     straight_pattern,
                 ),
             },
             {
-                'name': 'Thunder Lance',
-                'kind': 'weapon',
-                'weapon': Weapon(
+                "name": "Thunder Lance",
+                "kind": "weapon",
+                "weapon": Weapon(
                     ThunderBullet,
                     {
-                        'speed': 560,
-                        'damage': 2,
-                        'max_chain_targets': 3,
-                        'chain_radius': 220,
-                        'chain_damage_multiplier': 0.85,
-                        'chain_decay': 0.75,
-                        'glow_size': (18, 34),
-                        'jitter': 20,
-                        'spread': 0.12,
-                        'speed_variance': 45,
+                        "speed": 560,
+                        "damage": 2,
+                        "max_chain_targets": 3,
+                        "chain_radius": 220,
+                        "chain_damage_multiplier": 0.85,
+                        "chain_decay": 0.75,
+                        "glow_size": (18, 34),
+                        "jitter": 20,
+                        "spread": 0.12,
+                        "speed_variance": 45,
                     },
                     0.45,
                     thunder_pattern,
@@ -243,7 +272,9 @@ class Player(Entity):
 
     def cycle_weapon(self):
         if self.weapons:
-            self.current_weapon_index = (self.current_weapon_index + 1) % len(self.weapons)
+            self.current_weapon_index = (self.current_weapon_index + 1) % len(
+                self.weapons
+            )
 
     def try_fire(self):
         if not self.weapons or self.fire_held or self.should_block_shooting():
@@ -258,16 +289,20 @@ class Player(Entity):
             return []
 
         current = self.weapons[self.current_weapon_index]
-        self.multi_shot_enabled = current['kind'] != 'grenade'
-        if current['kind'] != 'grenade':
-            return current['weapon'].fire(self.rect.center, (0, -1), self.bullets_group, owner=self)
+        self.multi_shot_enabled = current["kind"] != "grenade"
+        if current["kind"] != "grenade":
+            return current["weapon"].fire(
+                self.rect.center, (0, -1), self.bullets_group, owner=self
+            )
 
         if self.active_grenade and self.active_grenade.alive():
             self.active_grenade.detonate()
             self.active_grenade = None
             return []
 
-        bullets = current['weapon'].fire(self.rect.center, (0, -1), self.bullets_group, owner=self)
+        bullets = current["weapon"].fire(
+            self.rect.center, (0, -1), self.bullets_group, owner=self
+        )
         if bullets:
             self.active_grenade = bullets[0]
         return bullets
@@ -275,31 +310,40 @@ class Player(Entity):
     def apply_status(self, status_type, duration_ms, metadata=None):
         expires_at = pygame.time.get_ticks() + max(0, int(duration_ms))
         metadata = metadata or {}
-        self.status_effects = [s for s in self.status_effects if s['type'] != status_type]
-        self.status_effects.append({'type': status_type, 'expires_at': expires_at, 'meta': metadata})
+        self.status_effects = [
+            s for s in self.status_effects if s["type"] != status_type
+        ]
+        self.status_effects.append(
+            {"type": status_type, "expires_at": expires_at, "meta": metadata}
+        )
 
     def has_status(self, status_type):
         now = pygame.time.get_ticks()
-        return any(effect['type'] == status_type and effect['expires_at'] > now for effect in self.status_effects)
+        return any(
+            effect["type"] == status_type and effect["expires_at"] > now
+            for effect in self.status_effects
+        )
 
     def apply_random_thunder_debuff(self, effect_profile=None):
         profile = effect_profile or {}
-        pool = profile.get('pool')
+        pool = profile.get("pool")
         if not pool:
             pool = [
-                {'type': 'inverted_controls', 'min_ms': 900, 'max_ms': 1800},
-                {'type': 'stun', 'min_ms': 700, 'max_ms': 1400},
-                {'type': 'shoot_lock', 'min_ms': 900, 'max_ms': 1600},
+                {"type": "inverted_controls", "min_ms": 900, "max_ms": 1800},
+                {"type": "stun", "min_ms": 700, "max_ms": 1400},
+                {"type": "shoot_lock", "min_ms": 900, "max_ms": 1600},
             ]
         choice = random.choice(pool)
-        duration = random.randint(choice.get('min_ms', 800), choice.get('max_ms', 1600))
-        self.apply_status(choice['type'], duration, metadata=choice)
+        duration = random.randint(choice.get("min_ms", 800), choice.get("max_ms", 1600))
+        self.apply_status(choice["type"], duration, metadata=choice)
 
     def update_status_effects(self):
         if not self.status_effects:
             return
         now = pygame.time.get_ticks()
-        self.status_effects = [effect for effect in self.status_effects if effect['expires_at'] > now]
+        self.status_effects = [
+            effect for effect in self.status_effects if effect["expires_at"] > now
+        ]
         if not self.status_effects:
             self.fire_held = False
 
@@ -307,17 +351,22 @@ class Player(Entity):
         if not self.status_effects:
             return
         color = None
-        if self.has_status('stun'):
+        if self.has_status("stun"):
             color = (255, 210, 120, 90)
-        elif self.has_status('shoot_lock'):
+        elif self.has_status("shoot_lock"):
             color = (190, 120, 255, 70)
-        elif self.has_status('inverted_controls'):
+        elif self.has_status("inverted_controls"):
             color = (120, 200, 255, 70)
         if color:
             overlay = pygame.Surface(self.image.get_size(), pygame.SRCALPHA)
             overlay.fill(color)
-            pygame.draw.rect(overlay, (*color[:3], min(220, color[3] + 60)), overlay.get_rect(), width=2)
+            pygame.draw.rect(
+                overlay,
+                (*color[:3], min(220, color[3] + 60)),
+                overlay.get_rect(),
+                width=2,
+            )
             self.image.blit(overlay, (0, 0))
 
     def should_block_shooting(self):
-        return self.has_status('shoot_lock') or self.has_status('stun')
+        return self.has_status("shoot_lock") or self.has_status("stun")

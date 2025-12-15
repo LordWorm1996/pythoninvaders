@@ -1,3 +1,4 @@
+"""
 import pygame
 
 import variables
@@ -8,24 +9,24 @@ from classes.attack_patterns import (
     thunder_pattern,
 )
 from classes.boss import Boss
-from classes.wave_loader import WaveLoader
+from classes.boss_loader import BossLoader
 
 
-class WaveSpawner:
-    def __init__(self, screen_width, screen_height, xml_path="waves.xml"):
+class BossSpawner:
+    def __init__(self, screen_width, screen_height, xml_path="bosses.xml"):
         self.screen_width = screen_width
         self.screen_height = screen_height
         self.xml_path = xml_path
 
-        WaveLoader.register_pattern("straight", straight_pattern)
-        WaveLoader.register_pattern("spread", spread_pattern)
-        WaveLoader.register_pattern("laser", laser_pattern)
-        WaveLoader.register_pattern("laser_pattern", laser_pattern)
-        WaveLoader.register_pattern("thunder", thunder_pattern)
-        WaveLoader.register_pattern("thunder_pattern", thunder_pattern)
+        BossLoader.register_pattern("straight", straight_pattern)
+        BossLoader.register_pattern("spread", spread_pattern)
+        BossLoader.register_pattern("laser", laser_pattern)
+        BossLoader.register_pattern("laser_pattern", laser_pattern)
+        BossLoader.register_pattern("thunder", thunder_pattern)
+        BossLoader.register_pattern("thunder_pattern", thunder_pattern)
 
         try:
-            self.waves = WaveLoader.load_waves(xml_path)
+            self.waves = BossLoader.load_waves(xml_path)
             print(f"Loaded {len(self.waves)} waves from {xml_path}")
         except FileNotFoundError:
             print(f"Warning: {xml_path} not found. Using default waves.")
@@ -131,13 +132,13 @@ class WaveSpawner:
 
     def create_boss_from_data(self, boss_data, boss_bullets_group):
         pattern_name = boss_data.get("attack_pattern", "straight")
-        attack_pattern = WaveLoader.get_pattern(pattern_name)
+        attack_pattern = BossLoader.get_pattern(pattern_name)
 
         if attack_pattern is None:
             print(
                 f"Warning: Attack pattern '{pattern_name}' not found. Using 'straight'."
             )
-            attack_pattern = WaveLoader.get_pattern("straight")
+            attack_pattern = BossLoader.get_pattern("straight")
 
         base_attack_chance = 0.01
         attack_chance = base_attack_chance * variables.difficulty
@@ -205,9 +206,9 @@ class WaveSpawner:
         aim_mode="player",
         boss_bullets_group=None,
     ):
-        pattern = WaveLoader.get_pattern(attack_pattern)
+        pattern = BossLoader.get_pattern(attack_pattern)
         if pattern is None:
-            pattern = WaveLoader.get_pattern("straight")
+            pattern = BossLoader.get_pattern("straight")
 
         base_attack_chance = 0.01
         attack_chance = base_attack_chance * variables.difficulty
@@ -223,3 +224,4 @@ class WaveSpawner:
         }
 
         return self.create_boss_from_data(boss_data, boss_bullets_group)
+"""

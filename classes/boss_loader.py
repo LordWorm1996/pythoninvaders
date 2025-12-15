@@ -1,8 +1,10 @@
+"""
+
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
 
-class WaveLoader:
+class BossLoader:
     pattern_registry = {}
 
     @classmethod
@@ -24,14 +26,14 @@ class WaveLoader:
 
     @classmethod
     def parse_wave(cls, wave_elem):
-        wave_data = {"number": int(wave_elem.get("number", 1)), "enemies": []}
+        wave_data = {"number": int(wave_elem.get("number", 1)), "boss": []}
 
         grid_elem = wave_elem.find("grid")
         if grid_elem is not None:
             wave_data["grid"] = cls.parse_grid(grid_elem)
 
-        for enemy_elem in wave_elem.findall("enemy"):
-            wave_data["enemies"].append(cls.parse_enemy(enemy_elem))
+        for boss_elem in wave_elem.findall("boss"):
+            wave_data["bosses"].append(cls.parse_boss(boss_elem))
 
         return wave_data
 
@@ -50,30 +52,32 @@ class WaveLoader:
             "default_aim": grid_elem.get("aim", "player"),
         }
 
-        enemies = []
-        for enemy_elem in grid_elem.findall("enemy"):
-            data = cls.parse_enemy(enemy_elem)
-            if "row" in enemy_elem.attrib:
-                data["row"] = int(enemy_elem.get("row"))
-            if "col" in enemy_elem.attrib:
-                data["col"] = int(enemy_elem.get("col"))
-            enemies.append(data)
+        bosses = []
+        for boss_elem in grid_elem.findall("boss"):
+            data = cls.parse_boss(boss_elem)
+            if "row" in boss_elem.attrib:
+                data["row"] = int(boss_elem.get("row"))
+            if "col" in boss_elem.attrib:
+                data["col"] = int(boss_elem.get("col"))
+            bosses.append(data)
 
-        grid_data["enemies"] = enemies
+        grid_data["bosses"] = bosses
         return grid_data
 
     @classmethod
-    def parse_enemy(cls, enemy_elem):
-        enemy = {
-            "x": int(enemy_elem.get("x", 0)),
-            "y": int(enemy_elem.get("y", 0)),
-            "health": int(enemy_elem.get("health", 1)),
-            "damage": int(enemy_elem.get("damage", 1)),
-            "attack_pattern": enemy_elem.get("attack_pattern", "straight"),
-            "speed": int(enemy_elem.get("speed", 0)),
-            "aim": enemy_elem.get("aim", "player"),
+    def parse_boss(cls, boss_elem):
+        boss = {
+            "x": int(boss_elem.get("x", 0)),
+            "y": int(boss_elem.get("y", 0)),
+            "health": int(boss_elem.get("health", 1)),
+            "damage": int(boss_elem.get("damage", 1)),
+            "attack_pattern": boss_elem.get("attack_pattern", "straight"),
+            "speed": int(boss_elem.get("speed", 0)),
+            "aim": boss_elem.get("aim", "player"),
         }
 
-        if enemy_elem.get("image"):
-            enemy["image"] = enemy_elem.get("image")
-        return enemy
+        if boss_elem.get("image"):
+            boss["image"] = boss_elem.get("image")
+        return boss
+
+"""
