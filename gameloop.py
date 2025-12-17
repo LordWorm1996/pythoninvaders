@@ -7,9 +7,6 @@ from classes.enemy_manager import EnemyManager
 from classes.player import Player
 from classes.ui import UI
 from classes.wave_spawner import WaveSpawner
-from skilltree import add_coins
-
-add_coins(3)
 
 
 def start_game(screen):
