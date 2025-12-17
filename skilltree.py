@@ -45,7 +45,7 @@ class SkillTree:
     def __init__(self):
         self.skills: Dict[str, Skill] = {}
         self.unlocked_skills: Dict[str, Skill] = {}
-        self.coins = 5
+        self.coins = 0
         self._initialize_skills()
 
     def _initialize_skills(self):
@@ -53,13 +53,13 @@ class SkillTree:
             "rapid_fire", "Rapid Fire", "+25% Attack Speed", 2, max_level=3
         )
         self.skills["double_shot"] = Skill(
-            "double_shot", "Double Shot", "Shoots two bullets", 3, max_level=3
+            "double_shot", "Double Shot", "Shoots two bullets", 2, max_level=3
+        )
+        self.skills["health_boost"] = Skill(
+            "health_boost", "Health Boost", "+25% Health", 3, max_level=3
         )
         self.skills["shield"] = Skill(
             "shield", "Energy Shield", "Blocks one hit", 4, ["health_boost"]
-        )
-        self.skills["health_boost"] = Skill(
-            "health_boost", "Health Boost", "+25% Health", 2, max_level=2
         )
         self.skills["super_shot"] = Skill(
             "super_shot",
@@ -100,12 +100,6 @@ class SkillTree:
 skill_tree = SkillTree()
 
 
-def create_circle_surface(color, size=60):
-    surface = pygame.Surface((size, size), pygame.SRCALPHA)
-    pygame.draw.circle(surface, color, (size // 2, size // 2), size // 2)
-    return surface
-
-
 def skilltree_menu(screen):
     theme = pygame_menu.themes.THEME_BLUE.copy()
     theme.title_font_size = 25
@@ -126,51 +120,34 @@ def skilltree_menu(screen):
         font_size=16,
         max_char=-1,
     )
-    menu.add.vertical_margin(30)
 
     skills_frame = menu.add.frame_h(
-        width=600, height=100, background_color=(0, 0, 0, 0)
+        width=610, height=160, background_color=(0, 0, 0, 0)
     )
 
-    skill_order = ["rapid_fire", "double_shot", "shield", "health_boost", "super_shot"]
+    skill_order = ["rapid_fire", "double_shot", "health_boost", "shield", "super_shot"]
 
     for skill_id in skill_order:
         skill = skill_tree.skills[skill_id]
 
         btn = menu.add.button(
-            "",
+            "+",
             lambda s_id=skill_id: upgrade_skill_callback(s_id, menu, info_label),
             button_id=f"skill_{skill_id}",
             align=pygame_menu.locals.ALIGN_CENTER,
+            font_size=64,
+            padding=(20, 40),
         )
 
         update_circle_button_appearance(btn, skill_id)
         skills_frame.pack(btn, align=pygame_menu.locals.ALIGN_CENTER)
 
-    menu.add.vertical_margin(30)
-
     names_frame = menu.add.frame_h(width=600, height=50, background_color=(0, 0, 0, 0))
     for skill_id in skill_order:
         skill = skill_tree.skills[skill_id]
-        name_label = menu.add.label(skill.name, font_size=12)
+        name_label = menu.add.label(skill.name, font_size=17)
         names_frame.pack(name_label, align=pygame_menu.locals.ALIGN_CENTER)
 
-    menu.add.vertical_margin(20)
-
-    levels_frame = menu.add.frame_h(width=600, height=30, background_color=(0, 0, 0, 0))
-    for skill_id in skill_order:
-        skill = skill_tree.skills[skill_id]
-        if skill.current_level >= skill.max_level:
-            level_text = "MAX"
-        else:
-            level_text = f"Lvl {skill.current_level}/{skill.max_level}"
-        level_label = menu.add.label(level_text, font_size=10)
-        levels_frame.pack(level_label, align=pygame_menu.locals.ALIGN_CENTER)
-
-    menu.add.vertical_margin(30)
-
-    menu.add.button("Add 3 Coins", lambda: add_demo_coins(menu, info_label))
-    menu.add.vertical_margin(10)
     menu.add.button("Back to Menu", pygame_menu.events.BACK)
 
     return menu
@@ -193,30 +170,17 @@ def update_circle_button_appearance(button, skill_id: str):
 
 def upgrade_skill_callback(skill_id: str, menu, info_label):
     skill = skill_tree.skills[skill_id]
+    skill_btn = menu.get_widget(f"skill_{skill_id}")
+    coins_label = menu.get_widget("coins_display")
 
     if skill_tree.upgrade_skill(skill_id):
         info_label.set_title(f"Upgraded {skill.name}!")
 
-        coins_label = menu.get_widget("coins_display")
         if coins_label:
             coins_label.set_title(f"Coins: {skill_tree.coins}")
 
-        skill_btn = menu.get_widget(f"skill_{skill_id}")
         if skill_btn:
             update_circle_button_appearance(skill_btn, skill_id)
-
-        for i, sid in enumerate(
-            ["rapid_fire", "double_shot", "shield", "health_boost", "super_shot"]
-        ):
-            level_widget = menu.get_widget(f"level_{sid}")
-            if not level_widget:
-                continue
-            skill_obj = skill_tree.skills[sid]
-            if skill_obj.current_level >= skill_obj.max_level:
-                level_text = "MAX"
-            else:
-                level_text = f"Lvl {skill_obj.current_level}/{skill_obj.max_level}"
-            level_widget.set_title(level_text)
 
     else:
         if skill.current_level >= skill.max_level:
@@ -231,31 +195,9 @@ def upgrade_skill_callback(skill_id: str, menu, info_label):
             info_label.set_title(f"Can't upgrade {skill.name}")
 
 
-def add_demo_coins(menu, info_label):
-    skill_tree.add_coins(3)
-    coins_label = menu.get_widget("coins_display")
-    if coins_label:
-        coins_label.set_title(f"Coins: {skill_tree.coins}")
-
-    info_label.set_title("Added 3 coins!")
-
-    for skill_id in skill_tree.skills:
-        skill_btn = menu.get_widget(f"skill_{skill_id}")
-        if skill_btn:
-            update_circle_button_appearance(skill_btn, skill_id)
-
-
 # Functions to use in game
-def get_skill_tree():
-    return skill_tree
-
-
 def add_coins(coins: int):
     skill_tree.add_coins(coins)
-
-
-def is_skill_unlocked(skill_id: str) -> bool:
-    return skill_id in skill_tree.unlocked_skills
 
 
 def get_skill_level(skill_id: str) -> int:
