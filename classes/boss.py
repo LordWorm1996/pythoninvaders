@@ -82,12 +82,17 @@ class Boss(Entity):
         if self.health <= 0:
             return False, None
 
+        player_ult = Player.ultimate
+        player_score = UI.score
+
         self.health -= damage_amount
         if self.health <= 0:
             x, y = self.rect.center
             BossDrop(x, y, "boss_health_pack")
             BossDrop(x + 30, y, "boss_ultimate_pack")
             BossDrop(x - 30, y, "weapon_types")  # needs implementation
+            player_ult += 100
+            player_score += 100
             self.kill()
             return True
         return False, None

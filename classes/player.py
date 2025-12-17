@@ -67,6 +67,9 @@ class Player(Entity):
     def get_health_percentage(self):
         return self.health / self.max_health if self.max_health else 0
 
+    def get_ultimate_percentage(self):
+        return self.ultimate / self.max_ultimate if self.max_ultimate else 0
+
     def heal(self, amount):
         self.health = min(self.max_health, self.health + amount)
         return self.health
