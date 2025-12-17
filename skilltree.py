@@ -49,14 +49,14 @@ class SkillTree:
         self._initialize_skills()
 
     def _initialize_skills(self):
-        self.skills["rapid_fire"] = Skill(
-            "rapid_fire", "Rapid Fire", "+25% Attack Speed", 2, max_level=3
-        )
-        self.skills["double_shot"] = Skill(
-            "double_shot", "Double Shot", "Shoots two bullets", 2, max_level=3
-        )
         self.skills["health_boost"] = Skill(
             "health_boost", "Health Boost", "+25% Health", 3, max_level=3
+        )
+        self.skills["rapid_fire"] = Skill(
+            "rapid_fire", "Rapid Fire", "+25% Attack Speed", 3, max_level=3
+        )
+        self.skills["double_shot"] = Skill(
+            "double_shot", "Double Shot", "Shoots two bullets", 4, ["rapid_fire"]
         )
         self.skills["shield"] = Skill(
             "shield", "Energy Shield", "Blocks one hit", 4, ["health_boost"]
