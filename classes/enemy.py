@@ -8,6 +8,8 @@ from classes.attack_patterns import straight_pattern
 from classes.bullet import Bullet, LaserBeam, ThunderBullet
 from classes.enemy_drop import EnemyDrop
 from classes.entity import Entity
+from classes.player import Player
+from classes.ui import UI
 from classes.weapon import Weapon
 
 
@@ -84,6 +86,10 @@ class Enemy(Entity):
             return False, None
 
         self.health -= damage_amount
+
+        player_ult = Player.ultimate
+        player_score = UI.score
+
         if self.health <= 0:
             drop_type = random.choices(
                 population=["no_drop", "health_pack", "big_health_pack"],
@@ -95,6 +101,8 @@ class Enemy(Entity):
                 k=1,
             )[0]
             drop = EnemyDrop(self.rect.centerx, self.rect.centery, drop_type)
+            player_ult += 5  # if enemy == elite 10
+            player_score += 1  # if enemy == elite 10
             self.kill()
             return True, drop
         return False, None

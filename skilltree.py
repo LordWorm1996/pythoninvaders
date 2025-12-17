@@ -45,7 +45,7 @@ class SkillTree:
     def __init__(self):
         self.skills: Dict[str, Skill] = {}
         self.unlocked_skills: Dict[str, Skill] = {}
-        self.skill_points = 5
+        self.coins = 5
         self._initialize_skills()
 
     def _initialize_skills(self):
@@ -69,8 +69,8 @@ class SkillTree:
             ["health_boost", "shield", "double_shot", "rapid_fire"],
         )
 
-    def add_skill_points(self, points: int):
-        self.skill_points += points
+    def add_coins(self, coins: int):
+        self.coins += coins
 
     def can_upgrade_skill(self, skill_id: str) -> bool:
         if skill_id not in self.skills:
@@ -78,7 +78,7 @@ class SkillTree:
 
         skill = self.skills[skill_id]
         return (
-            self.skill_points >= skill.cost
+            self.coins >= skill.cost
             and skill.can_unlock(self.unlocked_skills)
             and skill.current_level < skill.max_level
         )
@@ -88,7 +88,7 @@ class SkillTree:
             return False
 
         skill = self.skills[skill_id]
-        self.skill_points -= skill.cost
+        self.coins -= skill.cost
         skill.upgrade()
 
         if skill.unlocked:
@@ -114,8 +114,8 @@ def skilltree_menu(screen):
     menu = pygame_menu.Menu("Skill Tree", 700, 500, theme=theme)
 
     menu.add.label(
-        f"Skill Points: {skill_tree.skill_points}",
-        label_id="skill_points_display",
+        f"Coins: {skill_tree.coins}",
+        label_id="coins_display",
         font_size=20,
     )
     menu.add.vertical_margin(20)
@@ -169,7 +169,7 @@ def skilltree_menu(screen):
 
     menu.add.vertical_margin(30)
 
-    menu.add.button("Add 3 Points", lambda: add_demo_points(menu, info_label))
+    menu.add.button("Add 3 Coins", lambda: add_demo_coins(menu, info_label))
     menu.add.vertical_margin(10)
     menu.add.button("Back to Menu", pygame_menu.events.BACK)
 
@@ -197,9 +197,9 @@ def upgrade_skill_callback(skill_id: str, menu, info_label):
     if skill_tree.upgrade_skill(skill_id):
         info_label.set_title(f"Upgraded {skill.name}!")
 
-        points_label = menu.get_widget("skill_points_display")
-        if points_label:
-            points_label.set_title(f"Skill Points: {skill_tree.skill_points}")
+        coins_label = menu.get_widget("coins_display")
+        if coins_label:
+            coins_label.set_title(f"Coins: {skill_tree.coins}")
 
         skill_btn = menu.get_widget(f"skill_{skill_id}")
         if skill_btn:
@@ -221,9 +221,9 @@ def upgrade_skill_callback(skill_id: str, menu, info_label):
     else:
         if skill.current_level >= skill.max_level:
             info_label.set_title(f"{skill.name} is maxed out!")
-        elif skill_tree.skill_points < skill.cost:
+        elif skill_tree.coins < skill.cost:
             info_label.set_title(
-                f"Need {skill.cost} points! You have {skill_tree.skill_points}"
+                f"Need {skill.cost} coins! You have {skill_tree.coins}"
             )
         elif not skill.can_unlock(skill_tree.unlocked_skills):
             info_label.set_title("Upgrade previous skills first!")
@@ -231,13 +231,13 @@ def upgrade_skill_callback(skill_id: str, menu, info_label):
             info_label.set_title(f"Can't upgrade {skill.name}")
 
 
-def add_demo_points(menu, info_label):
-    skill_tree.add_skill_points(3)
-    points_label = menu.get_widget("skill_points_display")
-    if points_label:
-        points_label.set_title(f"Skill Points: {skill_tree.skill_points}")
+def add_demo_coins(menu, info_label):
+    skill_tree.add_coins(3)
+    coins_label = menu.get_widget("coins_display")
+    if coins_label:
+        coins_label.set_title(f"Coins: {skill_tree.coins}")
 
-    info_label.set_title("Added 3 skill points!")
+    info_label.set_title("Added 3 coins!")
 
     for skill_id in skill_tree.skills:
         skill_btn = menu.get_widget(f"skill_{skill_id}")
@@ -250,8 +250,8 @@ def get_skill_tree():
     return skill_tree
 
 
-def add_skill_points(points: int):
-    skill_tree.add_skill_points(points)
+def add_coins(coins: int):
+    skill_tree.add_coins(coins)
 
 
 def is_skill_unlocked(skill_id: str) -> bool:

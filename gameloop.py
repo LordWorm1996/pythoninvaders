@@ -7,9 +7,9 @@ from classes.enemy_manager import EnemyManager
 from classes.player import Player
 from classes.ui import UI
 from classes.wave_spawner import WaveSpawner
-from skilltree import add_skill_points
+from skilltree import add_coins
 
-add_skill_points(3)
+add_coins(3)
 
 
 def start_game(screen):
@@ -72,7 +72,9 @@ def start_game(screen):
         enemy_drops.draw(screen)
 
         ui.draw_health_bar(player)
+        ui.draw_ultimate_bar(player)
         ui.draw_wave_info(wave_spawner.wave_number, len(enemies))
+        ui.draw_score(score)
         if not player.is_alive():
             ui.draw_game_over()
 
