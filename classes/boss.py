@@ -9,18 +9,17 @@ from classes.attack_patterns import (
     straight_pattern,
     thunder_pattern,
 )
+from classes.boss_drop import BossDrop
 from classes.bullet import Bullet, LaserBeam, ThunderBullet
 from classes.enemy_drop import EnemyDrop
 from classes.entity import Entity
 from classes.ultimate_abilities import COLOR_TO_ULTIMATE_ID
-from classes.boss_drop import BossDrop
 from classes.weapon import Weapon
-
 
 COLOR_TO_WEAPON_ID = {
     "yellow": "Spread",
     "blue": "Laser",
-    "green":"Grenade Launcher" ,
+    "green": "Grenade Launcher",
     "purple": "Thunder Lance",
 }
 
@@ -67,7 +66,6 @@ class Boss(Entity):
 
         super().__init__(x, y, image)
 
-
         hit_scale = getattr(variables, "boss_hitbox_scale", 0.7)
         if hit_scale and 0 < hit_scale < 1.0:
             cx, cy = self.rect.center
@@ -96,8 +94,8 @@ class Boss(Entity):
         self.status_effects = []
 
         self.rainbow_profiles = []
-        self.attack_pattern, bullet_class, bullet_args, cooldown = self._configure_by_color(
-            damage
+        self.attack_pattern, bullet_class, bullet_args, cooldown = (
+            self._configure_by_color(damage)
         )
 
         self.weapon = Weapon(
@@ -160,7 +158,9 @@ class Boss(Entity):
             self.shot_count = 3
             self.max_shots = 3
             cooldown = 1.4
-        elif color == "rainbow": # rainbow can use all weapons and randomly choose each attack
+        elif (
+            color == "rainbow"
+        ):  # rainbow can use all weapons and randomly choose each attack
             self.shot_count = 4
             self.max_shots = 4
 
@@ -170,25 +170,25 @@ class Boss(Entity):
                     "bullet_class": Bullet,
                     "bullet_args": {"speed": 320, "damage": damage},
                     "cooldown": 1.0,
-                },  
+                },
                 {
                     "pattern": straight_pattern,
                     "bullet_class": Bullet,
                     "bullet_args": {"speed": 320, "damage": damage},
                     "cooldown": 1.0,
-                },  
+                },
                 {
                     "pattern": spread_pattern,
                     "bullet_class": Bullet,
                     "bullet_args": {"speed": 300, "damage": damage},
                     "cooldown": 1.0,
-                },  
+                },
                 {
                     "pattern": spread_pattern,
                     "bullet_class": Bullet,
                     "bullet_args": {"speed": 300, "damage": damage},
                     "cooldown": 1.0,
-                },  
+                },
                 {
                     "pattern": laser_pattern,
                     "bullet_class": LaserBeam,
@@ -200,7 +200,7 @@ class Boss(Entity):
                         "color": (0, 200, 255),
                     },
                     "cooldown": 3.0,
-                },  
+                },
                 {
                     "pattern": thunder_pattern,
                     "bullet_class": ThunderBullet,
@@ -230,7 +230,7 @@ class Boss(Entity):
                         ],
                     },
                     "cooldown": 1.4,
-                },  
+                },
             ]
 
         return pattern, bullet_class, bullet_args, cooldown

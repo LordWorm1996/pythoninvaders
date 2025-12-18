@@ -1,15 +1,15 @@
 import pygame
 
+import variables
+from classes.attack_patterns import (
+    laser_pattern,
+    spread_pattern,
+    straight_pattern,
+    thunder_pattern,
+)
 from classes.boss import Boss
 from classes.enemy import Enemy
 from classes.wave_loader import BossLoader
-from classes.attack_patterns import (
-    straight_pattern,
-    spread_pattern,
-    laser_pattern,
-    thunder_pattern,
-)
-import variables
 
 
 class WaveSpawner:

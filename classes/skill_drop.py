@@ -23,11 +23,11 @@ class SkillDrop(EnemyDrop):
         "shot",
     )
 
-    #CHATGPT START : without this it crashes : TypeError:EnemyDrop.__new__() missing 1 reqquired positional argument
+    # CHATGPT START : without this it crashes : TypeError:EnemyDrop.__new__() missing 1 reqquired positional argument
     def __new__(cls, *args, **kwargs):
         return pygame.sprite.Sprite.__new__(cls)
-    ## CHATGPT END
 
+    ## CHATGPT END
 
     def __init__(self, x, y, skill_id=None):
         pygame.sprite.Sprite.__init__(self)
@@ -41,9 +41,7 @@ class SkillDrop(EnemyDrop):
 
         self.frames = []
         for i in range(self.FRAME_COUNT):
-            frame = pygame.image.load(
-                self.PATH_PATTERN.format(i=i)
-            ).convert_alpha()
+            frame = pygame.image.load(self.PATH_PATTERN.format(i=i)).convert_alpha()
             frame = pygame.transform.scale(frame, (self.SIZE_PX, self.SIZE_PX))
             self.frames.append(frame)
 
@@ -79,5 +77,3 @@ class SkillDrop(EnemyDrop):
 
         if pygame.time.get_ticks() - self.spawn_time >= self.lifetime:
             self.kill()
-
-

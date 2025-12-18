@@ -1,30 +1,36 @@
-import sys
-
 import pygame
 import pygame_menu
 
-import fonts
 import gameloop
-import music
-import skilltree
+import quit
+import start
 import variables
+from classes.skilltree import skilltree_menu
 
-pygame.init()
-#music.init_music()
-fonts.init_font()
+start.start_game()
 
-#music.play_theme()
 screen = pygame.display.set_mode((1000, 800), pygame.RESIZABLE)
 pygame.display.set_caption("Python Invaders")
 
 menu = pygame_menu.Menu(
-    "Python Invaders", 400, 300, theme=pygame_menu.themes.THEME_BLUE
+    "Python Invaders", 500, 500, theme=pygame_menu.themes.THEME_BLUE
 )
 
+menu.add.label(f"High Score: {variables.get_score()}")
+menu.add.label(f"Gems (Revives): {variables.get_gem()}")
 menu.add.text_input("Name :", default="Jane Doe")
 menu.add.button("Play", lambda _=None: gameloop.start_game(screen))
-menu.add.button("Skilltree", skilltree.skilltree_menu(screen))
-menu.add.button("Quit", pygame_menu.events.EXIT)
+menu.add.range_slider(
+    "Select Difficulty",
+    variables.get_difficulty(),
+    (0.1, 1.0),
+    1,
+    rangeslider_id="range_slider",
+    value_format=lambda x: f"{x:.1f}",
+    onchange=lambda x: variables.change_difficulty(x),
+)
+menu.add.button("Skilltree", skilltree_menu(screen))
+menu.add.button("Quit", quit.quit_game)
 
 running = True
 is_paused = False
@@ -32,10 +38,3 @@ while running:
     menu.mainloop(screen)
 
     pygame.display.flip()
-
-
-#music.stop_theme()
-#music.unload_theme()
-fonts.quit_font()
-pygame.quit()
-sys.exit()

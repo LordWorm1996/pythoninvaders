@@ -1,6 +1,5 @@
 from typing import Dict, List
 
-import pygame
 import pygame_menu
 
 
@@ -108,7 +107,7 @@ def skilltree_menu(screen):
     menu = pygame_menu.Menu("Skill Tree", 700, 500, theme=theme)
 
     menu.add.label(
-        f"Coins: {skill_tree.coins}",
+        f"Coins: {get_coins()}",
         label_id="coins_display",
         font_size=20,
     )
@@ -125,7 +124,7 @@ def skilltree_menu(screen):
         width=610, height=160, background_color=(0, 0, 0, 0)
     )
 
-    skill_order = ["rapid_fire", "double_shot", "health_boost", "shield", "super_shot"]
+    skill_order = ["health_boost", "rapid_fire", "double_shot", "shield", "super_shot"]
 
     for skill_id in skill_order:
         skill = skill_tree.skills[skill_id]
@@ -177,7 +176,7 @@ def upgrade_skill_callback(skill_id: str, menu, info_label):
         info_label.set_title(f"Upgraded {skill.name}!")
 
         if coins_label:
-            coins_label.set_title(f"Coins: {skill_tree.coins}")
+            coins_label.set_title(f"Coins: {get_coins()}")
 
         if skill_btn:
             update_circle_button_appearance(skill_btn, skill_id)
@@ -185,10 +184,8 @@ def upgrade_skill_callback(skill_id: str, menu, info_label):
     else:
         if skill.current_level >= skill.max_level:
             info_label.set_title(f"{skill.name} is maxed out!")
-        elif skill_tree.coins < skill.cost:
-            info_label.set_title(
-                f"Need {skill.cost} coins! You have {skill_tree.coins}"
-            )
+        elif get_coins() < skill.cost:
+            info_label.set_title(f"Need {skill.cost} coins! You have {get_coins()}")
         elif not skill.can_unlock(skill_tree.unlocked_skills):
             info_label.set_title("Upgrade previous skills first!")
         else:
@@ -200,7 +197,13 @@ def add_coins(coins: int):
     skill_tree.add_coins(coins)
 
 
+def get_coins():
+    return skill_tree.coins
+
+
 def get_skill_level(skill_id: str) -> int:
-    if skill_id in skill_tree.skills:
-        return skill_tree.skills[skill_id].current_level
-    return 0
+    return skill_tree.skills[skill_id].current_level
+
+
+def load_skill(skill_id: str, level: int):
+    skill_tree.skills[skill_id].current_level += level

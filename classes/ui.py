@@ -109,9 +109,7 @@ class UI:
                 True,
                 (0, 0, 0),
             )
-            label_rect = label.get_rect(
-                center=(x + total_width // 2, y + height // 2)
-            )
+            label_rect = label.get_rect(center=(x + total_width // 2, y + height // 2))
             self.screen.blit(label, label_rect)
 
     def draw_game_over(self):
