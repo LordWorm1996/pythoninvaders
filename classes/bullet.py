@@ -1,4 +1,5 @@
 import random
+
 import pygame
 
 
@@ -30,9 +31,7 @@ class Bullet(pygame.sprite.Sprite):
         super().__init__()
         self.image = image or pygame.Surface((5, 15))
         is_enemy_owner = (
-            owner == "enemy"
-            or owner == "boss"
-            or getattr(owner, "is_enemy", False)
+            owner == "enemy" or owner == "boss" or getattr(owner, "is_enemy", False)
         )
         self.image.fill((255, 255, 0) if is_enemy_owner else (255, 0, 0))
         self.rect = self.image.get_rect(center=pos)
@@ -52,24 +51,42 @@ class Bullet(pygame.sprite.Sprite):
             self.kill()
             return
 
-        if self.spawn_time and pygame.time.get_ticks() - self.spawn_time >= self.lifetime:
+        if (
+            self.spawn_time
+            and pygame.time.get_ticks() - self.spawn_time >= self.lifetime
+        ):
             self.kill()
 
 
-
 class LaserBeam(pygame.sprite.Sprite):
-    def __init__(self, pos, direction, damage=3, duration=2500, width=8, length=400, owner=None, color=(0, 255, 255)):
+    def __init__(
+        self,
+        pos,
+        direction,
+        damage=3,
+        duration=2500,
+        width=8,
+        length=400,
+        owner=None,
+        color=(0, 255, 255),
+    ):
         super().__init__()
         self.direction = normalized(direction, (0, 1))
         base_surface = pygame.Surface((width, length), pygame.SRCALPHA)
         base_surface.fill(color)
         angle = self.direction.angle_to(pygame.math.Vector2(0, -1))
         self.image = pygame.transform.rotate(base_surface, angle)
-        anchor = 'midtop' if self.direction.y > 0.7 else 'midbottom' if self.direction.y < -0.7 else 'center'
+        anchor = (
+            "midtop"
+            if self.direction.y > 0.7
+            else "midbottom"
+            if self.direction.y < -0.7
+            else "center"
+        )
         self.rect = self.image.get_rect()
-        if anchor == 'midtop':
+        if anchor == "midtop":
             self.rect.midtop = pos
-        elif anchor == 'midbottom':
+        elif anchor == "midbottom":
             self.rect.midbottom = pos
         else:
             self.rect.center = pos
@@ -105,7 +122,15 @@ class GrenadeBullet(Bullet):
             pygame.draw.circle(image, (255, 255, 255), (9, 9), 3)
 
         direction_vec = normalized(direction, (0, -1))
-        super().__init__(pos, direction_vec, speed=speed, damage=damage, owner=owner, image=image, lifetime=lifetime)
+        super().__init__(
+            pos,
+            direction_vec,
+            speed=speed,
+            damage=damage,
+            owner=owner,
+            image=image,
+            lifetime=lifetime,
+        )
         self.velocity = direction_vec * speed
         self.deceleration = deceleration
         self.explosion_radius = explosion_radius
@@ -152,7 +177,12 @@ class GrenadeBullet(Bullet):
         center = self.rect.center
         diameter = self.explosion_radius * 2
         explosion_surface = pygame.Surface((diameter, diameter), pygame.SRCALPHA)
-        pygame.draw.circle(explosion_surface, (255, 200, 80, 220), (self.explosion_radius, self.explosion_radius), self.explosion_radius)
+        pygame.draw.circle(
+            explosion_surface,
+            (255, 200, 80, 220),
+            (self.explosion_radius, self.explosion_radius),
+            self.explosion_radius,
+        )
         pygame.draw.circle(
             explosion_surface,
             (255, 120, 40, 230),
@@ -196,22 +226,22 @@ class ThunderBullet(Bullet):
         if image is None:
             image = self.frames[0].copy()
         effect_profile = {
-            'type': 'thunder',
-            'max_targets': max(0, int(max_chain_targets)),
-            'chain_radius': max(20, chain_radius),
-            'damage_multiplier': chain_damage_multiplier,
-            'decay': chain_decay,
-            'arc_color': arc_color,
-            'arc_core': arc_core,
-            'jitter': jitter,
+            "type": "thunder",
+            "max_targets": max(0, int(max_chain_targets)),
+            "chain_radius": max(20, chain_radius),
+            "damage_multiplier": chain_damage_multiplier,
+            "decay": chain_decay,
+            "arc_color": arc_color,
+            "arc_core": arc_core,
+            "jitter": jitter,
         }
         status_effect_profile = {
-            'type': 'thunder_shock',
-            'pool': status_effects
+            "type": "thunder_shock",
+            "pool": status_effects
             or [
-                {'type': 'inverted_controls', 'min_ms': 900, 'max_ms': 1800},
-                {'type': 'stun', 'min_ms': 700, 'max_ms': 1300},
-                {'type': 'shoot_lock', 'min_ms': 900, 'max_ms': 1700},
+                {"type": "inverted_controls", "min_ms": 900, "max_ms": 1800},
+                {"type": "stun", "min_ms": 700, "max_ms": 1300},
+                {"type": "shoot_lock", "min_ms": 900, "max_ms": 1700},
             ],
         }
         super().__init__(
@@ -246,7 +276,12 @@ class ThunderBullet(Bullet):
             if len(path_points) >= 2:
                 pygame.draw.lines(surface, self.arc_color, False, path_points, 3)
                 pygame.draw.lines(surface, self.arc_core, False, path_points, 1)
-            pygame.draw.circle(surface, (*self.arc_color, 40), (self.glow_size[0] // 2, self.glow_size[1]), 6)
+            pygame.draw.circle(
+                surface,
+                (*self.arc_color, 40),
+                (self.glow_size[0] // 2, self.glow_size[1]),
+                6,
+            )
             frames.append(surface)
         return frames
 
@@ -263,8 +298,11 @@ class ThunderBullet(Bullet):
             points.append((x, y))
         return points
 
+
 class LightningArc(Bullet):
-    def __init__(self, start, end, color, core_color, jitter=18, segments=6, owner=None):
+    def __init__(
+        self, start, end, color, core_color, jitter=18, segments=6, owner=None
+    ):
         super().__init__((0, 0), (0, 0), speed=0, damage=0, owner=owner, lifetime=0.05)
         self.start = pygame.math.Vector2(start)
         self.end = pygame.math.Vector2(end)
@@ -274,40 +312,41 @@ class LightningArc(Bullet):
         self.segments = segments
         self.generate_points()
         self.create_image()
-        self.persistent = False 
+        self.persistent = False
 
     def generate_points(self):
         self.points = [self.start]
         for i in range(1, self.segments):
             t = i / self.segments
             point = self.start.lerp(self.end, t)
-            normal = pygame.math.Vector2(-(self.end.y - self.start.y), self.end.x - self.start.x)
+            normal = pygame.math.Vector2(
+                -(self.end.y - self.start.y), self.end.x - self.start.x
+            )
             if normal.length_squared() > 0:
                 normal = normal.normalize()
             offset = random.uniform(-self.jitter, self.jitter)
             point += normal * offset
             self.points.append(point)
         self.points.append(self.end)
-    
+
     def create_image(self):
         all_points = [p.xy for p in self.points]
         min_x = min(p[0] for p in all_points)
         max_x = max(p[0] for p in all_points)
         min_y = min(p[1] for p in all_points)
         max_y = max(p[1] for p in all_points)
-        
+
         width = int(max_x - min_x) + 20
         height = int(max_y - min_y) + 20
         if width <= 0 or height <= 0:
             width = height = 1
-        
+
         self.image = pygame.Surface((width, height), pygame.SRCALPHA)
         offset_points = [(p[0] - min_x + 10, p[1] - min_y + 10) for p in all_points]
         pygame.draw.lines(self.image, self.color, False, offset_points, 4)
         pygame.draw.lines(self.image, self.core_color, False, offset_points, 2)
-        
+
         self.rect = self.image.get_rect(topleft=(min_x - 10, min_y - 10))
-    
+
     def update(self, dt):
         super().update(dt)
-

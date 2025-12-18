@@ -2,6 +2,7 @@ import random
 
 import pygame
 
+import variables
 from background import ScrollingBackground
 from classes.boss import Boss
 from classes.combat_manager import CombatManager
@@ -11,7 +12,6 @@ from classes.player import Player
 from classes.skill_drop import SkillDrop
 from classes.ui import UI
 from classes.wave_spawner import WaveSpawner
-import variables
 
 
 def start_game(screen):
@@ -37,7 +37,10 @@ def start_game(screen):
     )
     all_sprites = pygame.sprite.Group(player)
 
-    score = [0] # score is a list because we need to pass it to the combat manager (CHATGPT)
+    score = [
+        0
+    ]  # score is a list because we need to pass it to the combat manager (CHATGPT)
+
     combat_manager = CombatManager(
         player, player_bullets, enemies, enemy_bullets, enemy_drops, score
     )
@@ -66,12 +69,14 @@ def start_game(screen):
         enemy_manager.update(dt, screen.get_size(), player.rect.center)
         combat_manager.update()
 
-        #temp 
+        # temp
         if random.random() < variables.skill_drop_sky_chance:
             x = random.randint(0, screen.get_width())
-            y = -SkillDrop.SIZE_PX // 2 + 1             # Spawn just at/above the top edge so the drop is not immediately killed (CHATGPT)
+            y = (
+                -SkillDrop.SIZE_PX // 2 + 1
+            )  # Spawn just at/above the top edge so the drop is not immediately killed (CHATGPT)
             enemy_drops.add(SkillDrop(x, y))
-        #temp
+        # temp
         screen.fill((0, 0, 0))
         bg.draw(screen)
         all_sprites.draw(screen)
@@ -85,11 +90,11 @@ def start_game(screen):
         ui.draw_wave_info(wave_spawner.wave_number, len(enemies))
         ui.draw_score(score[0])
 
-        #temp 
+        # temp
         bosses = [e for e in enemies if isinstance(e, Boss)]
         ui.draw_boss_health_bars(bosses)
         if not player.is_alive():
             ui.draw_game_over()
-        #temp
+        # temp
         debug_menu.draw()
         pygame.display.flip()

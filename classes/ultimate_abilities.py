@@ -1,5 +1,3 @@
-import math
-
 import pygame
 
 from classes.bullet import Bullet
@@ -44,7 +42,7 @@ class RadialBurstUltimate(UltimateBase):
     def __init__(self):
         # Cooldown is effectively handled by the ultimate meter, but keep a small
         # internal cooldown to prevent accidental double-casts in the same frame.
-        super().__init__(cooldown_ms=300) #CHATGPT
+        super().__init__(cooldown_ms=300)  # CHATGPT
 
     def activate(self, player, context):
         bullets_group = context["bullets_group"]
@@ -79,7 +77,6 @@ class RadialBurstUltimate(UltimateBase):
 
 
 class HealUltimate(UltimateBase):
-
     id = "heal"
     display_name = "Heal"
 
@@ -88,12 +85,11 @@ class HealUltimate(UltimateBase):
 
     def activate(self, player, context):
         now = context.get("now")
-        player.heal(player.max_health) # max_health temporary 
+        player.heal(player.max_health)  # max_health temporary
         self.mark_used(now)
 
 
 class DashUltimate(UltimateBase):
-
     id = "dash"
     display_name = "Dash"
 
@@ -114,7 +110,6 @@ class DashUltimate(UltimateBase):
 
 
 class ShieldUltimate(UltimateBase):
-
     id = "shield"
     display_name = "Shield"
 
@@ -132,7 +127,6 @@ class ShieldUltimate(UltimateBase):
 
 
 class FrenzyUltimate(UltimateBase):
-
     id = "frenzy"
     display_name = "Frenzy"
 
@@ -168,5 +162,3 @@ COLOR_TO_ULTIMATE_ID = {
     "yellow": FrenzyUltimate.id,
     "blue": DashUltimate.id,
 }
-
-

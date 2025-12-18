@@ -98,7 +98,6 @@ class Player(Entity):
         self.health = min(self.max_health, self.health + amount)
         return self.health
 
-
     def charge_ultimate(self, amount):
         if amount <= 0:
             return
@@ -154,7 +153,9 @@ class Player(Entity):
         ultimate.activate(self, context)
         self.spend_full_ultimate()
 
-    def start_dash(self, direction, distance=220, duration_ms=160, invincibility_ms=260):
+    def start_dash(
+        self, direction, distance=220, duration_ms=160, invincibility_ms=260
+    ):
         direction_vec = pygame.math.Vector2(direction)
         if direction_vec.length_squared() == 0:
             return
@@ -193,7 +194,6 @@ class Player(Entity):
             self.ultimate_order.append(ability_id)
         if not self.current_ultimate_id:
             self.current_ultimate_id = ability_id
-
 
     def get_unlocked_weapon_indices(self):
         if not self.weapons or not self.unlocked_weapons:
@@ -597,9 +597,7 @@ class Player(Entity):
 
             if crit_chance > 0.0 and crit_multiplier > 1.0:
                 if random.random() < crit_chance:
-                    scaled_damage = max(
-                        1, int(round(scaled_damage * crit_multiplier))
-                    )
+                    scaled_damage = max(1, int(round(scaled_damage * crit_multiplier)))
                     setattr(bullet, "is_crit", True)
 
             bullet.damage = scaled_damage
@@ -612,11 +610,7 @@ class Player(Entity):
             if hasattr(bullet, "explosion_damage"):
                 bullet.explosion_damage = max(
                     1,
-                    int(
-                        round(
-                            bullet.explosion_damage * self.damage_multiplier
-                        )
-                    ),
+                    int(round(bullet.explosion_damage * self.damage_multiplier)),
                 )
 
     def apply_status(self, status_type, duration_ms, metadata=None):

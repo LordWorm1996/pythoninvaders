@@ -10,7 +10,7 @@ class EnemyDrop(pygame.sprite.Sprite):
         "ultimate_pack": ((0, 120, 255), 15, variables.ultimate_pack),
         "big_ultimate_pack": ((0, 120, 255), 20, variables.big_ultimate_pack),
         "coin": (None, 15, variables.coin),
-        "gem": (None, 20, 1), # should we add a value to the gem in variables ?
+        "gem": (None, 20, variables.gem),
     }
 
     def __new__(cls, x, y, drop_type):
@@ -31,14 +31,12 @@ class EnemyDrop(pygame.sprite.Sprite):
             if drop_type == "coin":
                 frame_count = 23
                 path_pattern = "game_assets/drops/coin/coin{i:03d}.png"
-            else:  
+            else:
                 frame_count = 4
                 path_pattern = "game_assets/drops/gem/gem{i:03d}.png"
 
             for i in range(frame_count):
-                frame = pygame.image.load(
-                    path_pattern.format(i=i)
-                ).convert_alpha()
+                frame = pygame.image.load(path_pattern.format(i=i)).convert_alpha()
                 frame = pygame.transform.scale(frame, (size_px, size_px))
                 self.frames.append(frame)
 

@@ -1,5 +1,4 @@
 import random
-from statistics import variance
 
 import pygame
 
@@ -8,9 +7,7 @@ from classes.attack_patterns import straight_pattern
 from classes.bullet import Bullet, LaserBeam, ThunderBullet
 from classes.enemy_drop import EnemyDrop
 from classes.entity import Entity
-from classes.player import Player
 from classes.skill_drop import SkillDrop
-from classes.ui import UI
 from classes.weapon import Weapon
 
 
@@ -53,9 +50,8 @@ class Enemy(Entity):
             if width > 0 and height > 0:
                 image = pygame.transform.scale(image, (width, height))
         # end CHATGPT
-        
-        super().__init__(x, y, image)
 
+        super().__init__(x, y, image)
 
         hit_scale = getattr(variables, "enemy_hitbox_scale", 0.7)
         if hit_scale and 0 < hit_scale < 1.0:
@@ -121,7 +117,6 @@ class Enemy(Entity):
             return False, None
 
         self.health -= damage_amount
-
 
         if self.health <= 0:
             drop_key = random.choices(

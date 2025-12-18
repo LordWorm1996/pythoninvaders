@@ -1,8 +1,5 @@
 import random
 
-# import pygame
-
-
 # Base Stats
 health = 1
 damage = 1
@@ -27,8 +24,33 @@ ultimate_pack = 10
 big_ultimate_pack = 20
 boss_ultimate_pack = 100
 coin = 1
+gem = 1
 
-gem = 0
+# Score Logic
+score = [0]
+
+
+def add_score(value: list):
+    global score
+    score = value
+
+
+def get_score():
+    return score
+
+
+# Gem Inventory
+gem_inv = 0
+
+
+def add_gem(value: int):
+    global gem_inv
+    gem_inv = value
+
+
+def get_gem():
+    return gem_inv
+
 
 # Boosters
 health_booster = 1
@@ -42,16 +64,27 @@ ult_on_kill = 1
 
 # Difficulty multiplier for enemy attack chance (0.0 to 1.0)
 # Higher values = enemies attack more frequently
-difficulty = 0.5  # Default: 50% of base attack chance
+# Default: 50% of base attack chance
+difficulty = 0.5
 
-if difficulty == 0.5:
+
+def change_difficulty(value: float):
+    global difficulty
+    difficulty = value
+
+
+def get_difficulty():
+    return difficulty
+
+
+if get_difficulty() == 0.5:
     no_drop_chance = 40
     health_chance = 30
     big_health_chance = 10
     coin_chance = 20
     gem_chance = 5
     skill_chance = 5
-elif difficulty > 0.5:
+elif get_difficulty() > 0.5:
     no_drop_chance = 50
     health_chance = 25
     big_health_chance = 10
@@ -91,7 +124,7 @@ enemy_sprite_paths = {
 
 boss_sprite_paths = enemy_sprite_paths
 
-#make them bigger
+# make them bigger
 enemy_scale = 2.0
 boss_scale = 2.5
 

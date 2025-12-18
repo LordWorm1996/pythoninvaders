@@ -1,16 +1,20 @@
-import random
-
 import pygame
 
 import variables
 from classes.bullet import LightningArc
 from classes.skill_drop import SkillDrop
-from skilltree import add_coins
+from classes.skilltree import add_coins
 
 
 class CombatManager:
     def __init__(
-        self, player, player_bullets, enemies, enemy_bullets, enemy_drops=None, score=None
+        self,
+        player,
+        player_bullets,
+        enemies,
+        enemy_bullets,
+        enemy_drops=None,
+        score=None,
     ):
         self.player = player
         self.player_bullets = player_bullets
@@ -43,6 +47,7 @@ class CombatManager:
                     bullet.stick_to(enemy)
                 if destroyed:
                     self.score[0] += 1
+                    variables.add_score(self.score)
                     self.player.charge_ultimate(1)
                     if drop is not None and self.enemy_drops is not None:
                         self.enemy_drops.add(drop)
@@ -83,7 +88,7 @@ class CombatManager:
             elif drop.drop_type == "coin":
                 add_coins(drop.value)
             elif drop.drop_type == "gem":
-                variables.gem += drop.value
+                variables.gem_inv += drop.value
             elif isinstance(drop, SkillDrop):
                 self.player.apply_skill_effect(drop.skill_id)
             elif getattr(drop, "drop_type", None) == "ultimate_ability":
@@ -124,9 +129,7 @@ class CombatManager:
                 "fire",
                 status_profile.get("duration_ms", variables.fire_duration_ms),
                 status_profile.get("tick_damage", variables.fire_tick_damage),
-                status_profile.get(
-                    "tick_interval_ms", variables.fire_tick_interval_ms
-                ),
+                status_profile.get("tick_interval_ms", variables.fire_tick_interval_ms),
             )
         elif status_type == "ice":
             primary_enemy.apply_status(
@@ -166,6 +169,7 @@ class CombatManager:
                         if destroyed:
                             enemy_dead = True
                             self.score[0] += 1
+                            variables.add_score(self.score)
                             self.player.charge_ultimate(1)
                             if drop is not None and self.enemy_drops is not None:
                                 self.enemy_drops.add(drop)
@@ -201,6 +205,7 @@ class CombatManager:
             destroyed, drop = target.take_damage(dmg_amount)
             if destroyed:
                 self.score[0] += 1
+                variables.add_score(self.score)
                 self.player.charge_ultimate(1)
                 if drop is not None and self.enemy_drops is not None:
                     self.enemy_drops.add(drop)

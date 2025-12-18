@@ -1,55 +1,1104 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <waves>
     <wave number="1">
-        <grid rows="2" cols="5" start_x="100" start_y="50" spacing_x="120" spacing_y="60"
-              health="1" attack_pattern="thunder" damage="1" aim="down">
-            <enemy row="0" col="0" color="red"/>
-            <enemy row="0" col="1" color="blue"/>
-            <enemy row="0" col="2" color="green"/>
-            <enemy row="0" col="3" color="yellow"/>
-            <enemy row="0" col="4" color="orange"/>
-            <enemy row="1" col="0" color="purple"/>
-            <enemy row="1" col="1" color="rainbow"/>
-            <enemy row="1" col="2" color="red"/>
-            <enemy row="1" col="3" color="blue"/>
-            <enemy row="1" col="4" color="green"/>
+        <grid
+            rows="3"
+            cols="6"
+            start_x="100"
+            start_y="50"
+            spacing_x="120"
+            spacing_y="60"
+            health="1"
+            damage="1"
+        >
+            <enemy row="1" col="1" color="red" />
+            <enemy row="1" col="2" color="red" />
+            <enemy row="1" col="3" color="red" />
+            <enemy row="1" col="4" color="red" />
+            <enemy row="1" col="5" color="red" />
+            <enemy row="1" col="6" color="red" />
+            <enemy row="2" col="1" color="red" />
+            <enemy row="2" col="2" color="red" />
+            <enemy row="2" col="3" color="red" />
+            <enemy row="2" col="4" color="red" />
+            <enemy row="2" col="5" color="red" />
+            <enemy row="2" col="6" color="red" />
+            <enemy row="3" col="1" color="red" />
+            <enemy row="3" col="2" color="red" />
+            <enemy row="3" col="3" color="red" />
+            <enemy row="3" col="4" color="red" />
+            <enemy row="3" col="5" color="red" />
+            <enemy row="3" col="6" color="red" />
+
         </grid>
     </wave>
 
     <wave number="2">
-        <grid rows="3" cols="6" start_x="50" start_y="50" spacing_x="120" spacing_y="60"
-              health="2" attack_pattern="straight" damage="1">
-            <enemy row="1" col="2" health="3" attack_pattern="spread"/>
-            <enemy row="1" col="3" health="3" attack_pattern="spread"/>
+        <grid
+            rows="3"
+            cols="3"
+            start_x="100"
+            start_y="50"
+            spacing_x="120"
+            spacing_y="60"
+            health="1"
+            damage="1"
+        >
+            <enemy row="1" col="1" color="red" />
+            <enemy row="1" col="2" color="red" />
+            <enemy row="1" col="3" color="red" />
+            <enemy row="2" col="1" color="red" />
+            <enemy row="2" col="2" color="red" />
+            <enemy row="2" col="3" color="red" />
+            <enemy row="3" col="1" color="blue" />
+            <enemy row="3" col="2" color="blue" />
+            <enemy row="3" col="3" color="blue" />
+
         </grid>
-        <boss x="400" y="100" color="red" health="20" damage="3" aim="player"/>
     </wave>
 
     <wave number="3">
-        <grid rows="2" cols="4" start_x="150" start_y="50" spacing_x="120" spacing_y="60"
-              health="2" attack_pattern="straight" damage="1">
+        <grid
+            rows="3"
+            cols="3"
+            start_x="100"
+            start_y="50"
+            spacing_x="120"
+            spacing_y="60"
+            health="1"
+            damage="1"
+        >
+            <enemy row="1" col="1" color="blue" />
+            <enemy row="1" col="2" color="red" />
+            <enemy row="1" col="3" color="blue" />
+            <enemy row="2" col="1" color="red" />
+            <enemy row="2" col="2" color="red" />
+            <enemy row="2" col="3" color="red" />
+            <enemy row="3" col="1" color="blue" />
+            <enemy row="3" col="2" color="blue" />
+            <enemy row="3" col="3" color="blue" />
+
         </grid>
-        <enemy x="100" y="50" health="3" attack_pattern="spread" damage="2"/>
-        <enemy x="700" y="50" health="3" attack_pattern="spread" damage="2"/>
-        <boss x="200" y="90" color="orange" health="35" damage="3" aim="player"/>
-        <boss x="600" y="90" color="blue" health="35" damage="3" aim="player"/>
     </wave>
 
     <wave number="4">
-        <grid rows="4" cols="5" start_x="100" start_y="50" spacing_x="130" spacing_y="50"
-              health="3" attack_pattern="straight" damage="1">
-            <enemy row="0" col="2" health="5" attack_pattern="spread"/>
-            <enemy row="3" col="0" health="4" attack_pattern="spread"/>
-            <enemy row="3" col="4" health="4" attack_pattern="spread"/>
+        <grid
+            rows="3"
+            cols="6"
+            start_x="100"
+            start_y="50"
+            spacing_x="120"
+            spacing_y="60"
+            health="1"
+            damage="1"
+        >
+            <enemy row="1" col="1" color="blue" />
+            <enemy row="1" col="2" color="red" />
+            <enemy row="1" col="3" color="blue" />
+            <enemy row="1" col="4" color="red" />
+            <enemy row="1" col="5" color="blue" />
+            <enemy row="1" col="6" color="red" />
+            <enemy row="2" col="1" color="blue" />
+            <enemy row="2" col="2" color="red" />
+            <enemy row="2" col="3" color="blue" />
+            <enemy row="2" col="4" color="red" />
+            <enemy row="2" col="5" color="blue" />
+            <enemy row="2" col="6" color="red" />
+            <enemy row="3" col="1" color="blue" />
+            <enemy row="3" col="2" color="red" />
+            <enemy row="3" col="3" color="blue" />
+            <enemy row="3" col="4" color="blue" />
+            <enemy row="3" col="5" color="blue" />
+            <enemy row="3" col="6" color="red" />
+
         </grid>
-        <boss x="250" y="80" color="green" health="50" damage="4" aim="player"/>
-        <boss x="550" y="80" color="purple" health="50" damage="4" aim="player"/>
     </wave>
 
     <wave number="5">
-        <grid rows="1" cols="3" start_x="300" start_y="50" spacing_x="100" spacing_y="60"
-              health="10" attack_pattern="spread" damage="2">
+        <grid
+            rows="4"
+            cols="4"
+            start_x="100"
+            start_y="50"
+            spacing_x="120"
+            spacing_y="60"
+            health="1"
+            damage="1"
+        >
+            <enemy row="1" col="1" color="blue" />
+            <enemy row="1" col="2" color="red" />
+            <enemy row="1" col="3" color="blue" />
+            <enemy row="1" col="4" color="red" />
+            <enemy row="2" col="1" color="red" />
+            <enemy row="2" col="2" color="blue" />
+            <enemy row="2" col="3" color="red" />
+            <enemy row="2" col="4" color="blue" />
+            <enemy row="3" col="1" color="blue" />
+            <enemy row="3" col="2" color="red" />
+            <enemy row="3" col="3" color="blue" />
+            <enemy row="3" col="4" color="blue" />
+            <enemy row="4" col="1" color="blue" />
+            <enemy row="4" col="2" color="red" />
+            <enemy row="4" col="3" color="blue" />
+            <enemy row="4" col="4" color="blue" />
+
         </grid>
-        <boss x="400" y="90" color="rainbow" health="80" damage="5" aim="player"/>
+    </wave>
+
+    <wave number="6">
+        <boss x="400" y="100" color="red" health="50" damage="5" aim="player" />
+    </wave>
+
+    <wave number="7">
+        <grid
+            rows="3"
+            cols="6"
+            start_x="100"
+            start_y="50"
+            spacing_x="120"
+            spacing_y="60"
+            health="5"
+            damage="5"
+        >
+            <enemy row="1" col="1" color="blue" />
+            <enemy row="1" col="2" color="blue" />
+            <enemy row="1" col="3" color="blue" />
+            <enemy row="1" col="4" color="blue" />
+            <enemy row="1" col="5" color="blue" />
+            <enemy row="1" col="6" color="blue" />
+            <enemy row="2" col="1" color="blue" />
+            <enemy row="2" col="2" color="blue" />
+            <enemy row="2" col="3" color="blue" />
+            <enemy row="2" col="4" color="blue" />
+            <enemy row="2" col="5" color="blue" />
+            <enemy row="2" col="6" color="blue" />
+            <enemy row="3" col="1" color="blue" />
+            <enemy row="3" col="2" color="blue" />
+            <enemy row="3" col="3" color="blue" />
+            <enemy row="3" col="4" color="blue" />
+            <enemy row="3" col="5" color="blue" />
+            <enemy row="3" col="6" color="blue" />
+
+        </grid>
+    </wave>
+
+    <wave number="8">
+        <grid
+            rows="3"
+            cols="3"
+            start_x="100"
+            start_y="50"
+            spacing_x="120"
+            spacing_y="60"
+            health="5"
+            damage="5"
+        >
+            <enemy row="1" col="1" color="blue" />
+            <enemy row="1" col="2" color="blue" />
+            <enemy row="1" col="3" color="blue" />
+            <enemy row="2" col="1" color="blue" />
+            <enemy row="2" col="2" color="blue" />
+            <enemy row="2" col="3" color="blue" />
+            <enemy row="3" col="1" color="green" />
+            <enemy row="3" col="2" color="green" />
+            <enemy row="3" col="3" color="green" />
+
+        </grid>
+    </wave>
+
+    <wave number="9">
+        <grid
+            rows="3"
+            cols="3"
+            start_x="100"
+            start_y="50"
+            spacing_x="120"
+            spacing_y="60"
+            health="5"
+            damage="5"
+        >
+            <enemy row="1" col="1" color="green" />
+            <enemy row="1" col="2" color="blue" />
+            <enemy row="1" col="3" color="green" />
+            <enemy row="2" col="1" color="blue" />
+            <enemy row="2" col="2" color="blue" />
+            <enemy row="2" col="3" color="blue" />
+            <enemy row="3" col="1" color="green" />
+            <enemy row="3" col="2" color="green" />
+            <enemy row="3" col="3" color="green" />
+
+        </grid>
+    </wave>
+
+    <wave number="10">
+        <grid
+            rows="3"
+            cols="6"
+            start_x="100"
+            start_y="50"
+            spacing_x="120"
+            spacing_y="60"
+            health="5"
+            damage="5"
+        >
+            <enemy row="1" col="1" color="blue" />
+            <enemy row="1" col="2" color="green" />
+            <enemy row="1" col="3" color="blue" />
+            <enemy row="1" col="4" color="green" />
+            <enemy row="1" col="5" color="blue" />
+            <enemy row="1" col="6" color="green" />
+            <enemy row="2" col="1" color="blue" />
+            <enemy row="2" col="2" color="green" />
+            <enemy row="2" col="3" color="blue" />
+            <enemy row="2" col="4" color="green" />
+            <enemy row="2" col="5" color="blue" />
+            <enemy row="2" col="6" color="green" />
+            <enemy row="3" col="1" color="blue" />
+            <enemy row="3" col="2" color="green" />
+            <enemy row="3" col="3" color="blue" />
+            <enemy row="3" col="4" color="blue" />
+            <enemy row="3" col="5" color="blue" />
+            <enemy row="3" col="6" color="green" />
+
+        </grid>
+    </wave>
+
+    <wave number="11">
+        <grid
+            rows="4"
+            cols="4"
+            start_x="100"
+            start_y="50"
+            spacing_x="120"
+            spacing_y="60"
+            health="5"
+            damage="5"
+        >
+            <enemy row="1" col="1" color="green" />
+            <enemy row="1" col="2" color="green" />
+            <enemy row="1" col="3" color="green" />
+            <enemy row="1" col="4" color="green" />
+            <enemy row="2" col="1" color="green" />
+            <enemy row="2" col="2" color="blue" />
+            <enemy row="2" col="3" color="green" />
+            <enemy row="2" col="4" color="blue" />
+            <enemy row="3" col="1" color="blue" />
+            <enemy row="3" col="2" color="green" />
+            <enemy row="3" col="3" color="blue" />
+            <enemy row="3" col="4" color="blue" />
+            <enemy row="4" col="1" color="green" />
+            <enemy row="4" col="2" color="green" />
+            <enemy row="4" col="3" color="green" />
+            <enemy row="4" col="4" color="green" />
+
+        </grid>
+    </wave>
+
+    <wave number="12">
+        <boss
+            x="400"
+            y="100"
+            color="blue"
+            health="100"
+            damage="10"
+            aim="player"
+        />
+    </wave>
+
+    <wave number="13">
+        <grid
+            rows="3"
+            cols="6"
+            start_x="100"
+            start_y="50"
+            spacing_x="120"
+            spacing_y="60"
+            health="10"
+            damage="10"
+        >
+            <enemy row="1" col="1" color="green" />
+            <enemy row="1" col="2" color="green" />
+            <enemy row="1" col="3" color="green" />
+            <enemy row="1" col="4" color="green" />
+            <enemy row="1" col="5" color="green" />
+            <enemy row="1" col="6" color="green" />
+            <enemy row="2" col="1" color="green" />
+            <enemy row="2" col="2" color="green" />
+            <enemy row="2" col="3" color="green" />
+            <enemy row="2" col="4" color="green" />
+            <enemy row="2" col="5" color="green" />
+            <enemy row="2" col="6" color="green" />
+            <enemy row="3" col="1" color="green" />
+            <enemy row="3" col="2" color="green" />
+            <enemy row="3" col="3" color="green" />
+            <enemy row="3" col="4" color="green" />
+            <enemy row="3" col="5" color="green" />
+            <enemy row="3" col="6" color="green" />
+
+        </grid>
+    </wave>
+
+    <wave number="14">
+        <grid
+            rows="3"
+            cols="3"
+            start_x="100"
+            start_y="50"
+            spacing_x="120"
+            spacing_y="60"
+            health="10"
+            damage="10"
+        >
+            <enemy row="1" col="1" color="green" />
+            <enemy row="1" col="2" color="green" />
+            <enemy row="1" col="3" color="green" />
+            <enemy row="2" col="1" color="green" />
+            <enemy row="2" col="2" color="green" />
+            <enemy row="2" col="3" color="green" />
+            <enemy row="3" col="1" color="blue" />
+            <enemy row="3" col="2" color="blue" />
+            <enemy row="3" col="3" color="blue" />
+
+        </grid>
+    </wave>
+
+    <wave number="15">
+        <grid
+            rows="3"
+            cols="3"
+            start_x="100"
+            start_y="50"
+            spacing_x="120"
+            spacing_y="60"
+            health="10"
+            damage="10"
+        >
+            <enemy row="1" col="1" color="green" />
+            <enemy row="1" col="2" color="green" />
+            <enemy row="1" col="3" color="blue" />
+            <enemy row="2" col="1" color="green" />
+            <enemy row="2" col="2" color="green" />
+            <enemy row="2" col="3" color="green" />
+            <enemy row="3" col="1" color="blue" />
+            <enemy row="3" col="2" color="blue" />
+            <enemy row="3" col="3" color="green" />
+
+        </grid>
+    </wave>
+
+    <wave number="16">
+        <grid
+            rows="3"
+            cols="6"
+            start_x="100"
+            start_y="50"
+            spacing_x="120"
+            spacing_y="60"
+            health="10"
+            damage="10"
+        >
+            <enemy row="1" col="1" color="blue" />
+            <enemy row="1" col="2" color="green" />
+            <enemy row="1" col="3" color="blue" />
+            <enemy row="1" col="4" color="green" />
+            <enemy row="1" col="5" color="blue" />
+            <enemy row="1" col="6" color="green" />
+            <enemy row="2" col="1" color="blue" />
+            <enemy row="2" col="2" color="green" />
+            <enemy row="2" col="3" color="blue" />
+            <enemy row="2" col="4" color="green" />
+            <enemy row="2" col="5" color="blue" />
+            <enemy row="2" col="6" color="green" />
+            <enemy row="3" col="1" color="blue" />
+            <enemy row="3" col="2" color="green" />
+            <enemy row="3" col="3" color="blue" />
+            <enemy row="3" col="4" color="blue" />
+            <enemy row="3" col="5" color="blue" />
+            <enemy row="3" col="6" color="green" />
+
+        </grid>
+    </wave>
+
+    <wave number="17">
+        <grid
+            rows="4"
+            cols="4"
+            start_x="100"
+            start_y="50"
+            spacing_x="120"
+            spacing_y="60"
+            health="10"
+            damage="10"
+        >
+            <enemy row="1" col="1" color="green" />
+            <enemy row="1" col="2" color="green" />
+            <enemy row="1" col="3" color="blue" />
+            <enemy row="1" col="4" color="green" />
+            <enemy row="2" col="1" color="green" />
+            <enemy row="2" col="2" color="blue" />
+            <enemy row="2" col="3" color="green" />
+            <enemy row="2" col="4" color="blue" />
+            <enemy row="3" col="1" color="blue" />
+            <enemy row="3" col="2" color="rainbow" />
+            <enemy row="3" col="3" color="blue" />
+            <enemy row="3" col="4" color="green" />
+            <enemy row="4" col="1" color="blue" />
+            <enemy row="4" col="2" color="green" />
+            <enemy row="4" col="3" color="blue" />
+            <enemy row="4" col="4" color="green" />
+
+        </grid>
+    </wave>
+
+    <wave number="18">
+        <boss
+            x="400"
+            y="100"
+            color="green"
+            health="150"
+            damage="15"
+            aim="player"
+        />
+    </wave>
+
+    <wave number="19">
+        <grid
+            rows="3"
+            cols="6"
+            start_x="100"
+            start_y="50"
+            spacing_x="120"
+            spacing_y="60"
+            health="15"
+            damage="15"
+        >
+            <enemy row="1" col="1" color="orange" />
+            <enemy row="1" col="2" color="orange" />
+            <enemy row="1" col="3" color="orange" />
+            <enemy row="1" col="4" color="orange" />
+            <enemy row="1" col="5" color="orange" />
+            <enemy row="1" col="6" color="orange" />
+            <enemy row="2" col="1" color="orange" />
+            <enemy row="2" col="2" color="orange" />
+            <enemy row="2" col="3" color="orange" />
+            <enemy row="2" col="4" color="orange" />
+            <enemy row="2" col="5" color="orange" />
+            <enemy row="2" col="6" color="orange" />
+            <enemy row="3" col="1" color="orange" />
+            <enemy row="3" col="2" color="orange" />
+            <enemy row="3" col="3" color="orange" />
+            <enemy row="3" col="4" color="orange" />
+            <enemy row="3" col="5" color="orange" />
+            <enemy row="3" col="6" color="orange" />
+
+        </grid>
+    </wave>
+
+    <wave number="20">
+        <grid
+            rows="3"
+            cols="3"
+            start_x="100"
+            start_y="50"
+            spacing_x="120"
+            spacing_y="60"
+            health="15"
+            damage="15"
+        >
+            <enemy row="1" col="1" color="green" />
+            <enemy row="1" col="2" color="green" />
+            <enemy row="1" col="3" color="green" />
+            <enemy row="2" col="1" color="green" />
+            <enemy row="2" col="2" color="green" />
+            <enemy row="2" col="3" color="green" />
+            <enemy row="3" col="1" color="orange" />
+            <enemy row="3" col="2" color="orange" />
+            <enemy row="3" col="3" color="orange" />
+
+        </grid>
+    </wave>
+
+    <wave number="21">
+        <grid
+            rows="3"
+            cols="3"
+            start_x="100"
+            start_y="50"
+            spacing_x="120"
+            spacing_y="60"
+            health="15"
+            damage="15"
+        >
+            <enemy row="1" col="1" color="green" />
+            <enemy row="1" col="2" color="orange" />
+            <enemy row="1" col="3" color="green" />
+            <enemy row="2" col="1" color="orange" />
+            <enemy row="2" col="2" color="orange" />
+            <enemy row="2" col="3" color="orange" />
+            <enemy row="3" col="1" color="green" />
+            <enemy row="3" col="2" color="green" />
+            <enemy row="3" col="3" color="green" />
+
+        </grid>
+    </wave>
+
+    <wave number="22">
+        <grid
+            rows="3"
+            cols="6"
+            start_x="100"
+            start_y="50"
+            spacing_x="120"
+            spacing_y="60"
+            health="15"
+            damage="15"
+        >
+            <enemy row="1" col="1" color="green" />
+            <enemy row="1" col="2" color="orange" />
+            <enemy row="1" col="3" color="green" />
+            <enemy row="1" col="4" color="orange" />
+            <enemy row="1" col="5" color="green" />
+            <enemy row="1" col="6" color="orange" />
+            <enemy row="2" col="1" color="green" />
+            <enemy row="2" col="2" color="orange" />
+            <enemy row="2" col="3" color="green" />
+            <enemy row="2" col="4" color="orange" />
+            <enemy row="2" col="5" color="green" />
+            <enemy row="2" col="6" color="orange" />
+            <enemy row="3" col="1" color="green" />
+            <enemy row="3" col="2" color="orange" />
+            <enemy row="3" col="3" color="green" />
+            <enemy row="3" col="4" color="orange" />
+            <enemy row="3" col="5" color="green" />
+            <enemy row="3" col="6" color="green" />
+
+        </grid>
+    </wave>
+
+    <wave number="23">
+        <grid
+            rows="4"
+            cols="4"
+            start_x="100"
+            start_y="50"
+            spacing_x="120"
+            spacing_y="60"
+            health="15"
+            damage="15"
+        >
+            <enemy row="1" col="1" color="yellow" />
+            <enemy row="1" col="2" color="green" />
+            <enemy row="1" col="3" color="yellow" />
+            <enemy row="1" col="4" color="green" />
+            <enemy row="2" col="1" color="green" />
+            <enemy row="2" col="2" color="orange" />
+            <enemy row="2" col="3" color="green" />
+            <enemy row="2" col="4" color="orange" />
+            <enemy row="3" col="1" color="orange" />
+            <enemy row="3" col="2" color="green" />
+            <enemy row="3" col="3" color="orange" />
+            <enemy row="3" col="4" color="orange" />
+            <enemy row="4" col="1" color="yellow" />
+            <enemy row="4" col="2" color="rainbow" />
+            <enemy row="4" col="3" color="orange" />
+            <enemy row="4" col="4" color="yellow" />
+
+        </grid>
+    </wave>
+
+    <wave number="24">
+        <boss
+            x="400"
+            y="100"
+            color="yellow"
+            health="200"
+            damage="20"
+            aim="player"
+        />
+    </wave>
+
+    <wave number="25">
+        <grid
+            rows="3"
+            cols="6"
+            start_x="100"
+            start_y="50"
+            spacing_x="120"
+            spacing_y="60"
+            health="20"
+            damage="20"
+        >
+            <enemy row="1" col="1" color="yellow" />
+            <enemy row="1" col="2" color="yellow" />
+            <enemy row="1" col="3" color="yellow" />
+            <enemy row="1" col="4" color="yellow" />
+            <enemy row="1" col="5" color="yellow" />
+            <enemy row="1" col="6" color="yellow" />
+            <enemy row="2" col="1" color="yellow" />
+            <enemy row="2" col="2" color="yellow" />
+            <enemy row="2" col="3" color="yellow" />
+            <enemy row="2" col="4" color="yellow" />
+            <enemy row="2" col="5" color="yellow" />
+            <enemy row="2" col="6" color="yellow" />
+            <enemy row="3" col="1" color="yellow" />
+            <enemy row="3" col="2" color="yellow" />
+            <enemy row="3" col="3" color="yellow" />
+            <enemy row="3" col="4" color="yellow" />
+            <enemy row="3" col="5" color="yellow" />
+            <enemy row="3" col="6" color="yellow" />
+
+        </grid>
+    </wave>
+
+    <wave number="26">
+        <grid
+            rows="3"
+            cols="3"
+            start_x="100"
+            start_y="50"
+            spacing_x="120"
+            spacing_y="60"
+            health="20"
+            damage="20"
+        >
+            <enemy row="1" col="1" color="orange" />
+            <enemy row="1" col="2" color="orange" />
+            <enemy row="1" col="3" color="orange" />
+            <enemy row="2" col="1" color="orange" />
+            <enemy row="2" col="2" color="orange" />
+            <enemy row="2" col="3" color="orange" />
+            <enemy row="3" col="1" color="yellow" />
+            <enemy row="3" col="2" color="yellow" />
+            <enemy row="3" col="3" color="yellow" />
+
+        </grid>
+    </wave>
+
+    <wave number="27">
+        <grid
+            rows="3"
+            cols="3"
+            start_x="100"
+            start_y="50"
+            spacing_x="120"
+            spacing_y="60"
+            health="20"
+            damage="20"
+        >
+            <enemy row="1" col="1" color="orange" />
+            <enemy row="1" col="2" color="yellow" />
+            <enemy row="1" col="3" color="orange" />
+            <enemy row="2" col="1" color="yellow" />
+            <enemy row="2" col="2" color="yellow" />
+            <enemy row="2" col="3" color="yellow" />
+            <enemy row="3" col="1" color="orange" />
+            <enemy row="3" col="2" color="orange" />
+            <enemy row="3" col="3" color="orange" />
+
+        </grid>
+    </wave>
+
+    <wave number="28">
+        <grid
+            rows="3"
+            cols="6"
+            start_x="100"
+            start_y="50"
+            spacing_x="120"
+            spacing_y="60"
+            health="20"
+            damage="20"
+        >
+            <enemy row="1" col="1" color="orange" />
+            <enemy row="1" col="2" color="yellow" />
+            <enemy row="1" col="3" color="orange" />
+            <enemy row="1" col="4" color="yellow" />
+            <enemy row="1" col="5" color="orange" />
+            <enemy row="1" col="6" color="yellow" />
+            <enemy row="2" col="1" color="orange" />
+            <enemy row="2" col="2" color="yellow" />
+            <enemy row="2" col="3" color="orange" />
+            <enemy row="2" col="4" color="yellow" />
+            <enemy row="2" col="5" color="orange" />
+            <enemy row="2" col="6" color="yellow" />
+            <enemy row="3" col="1" color="orange" />
+            <enemy row="3" col="2" color="yellow" />
+            <enemy row="3" col="3" color="orange" />
+            <enemy row="3" col="4" color="yellow" />
+            <enemy row="3" col="5" color="orange" />
+            <enemy row="3" col="6" color="yellow" />
+
+        </grid>
+    </wave>
+
+    <wave number="29">
+        <grid
+            rows="4"
+            cols="4"
+            start_x="100"
+            start_y="50"
+            spacing_x="120"
+            spacing_y="60"
+            health="20"
+            damage="20"
+        >
+            <enemy row="1" col="1" color="yellow" />
+            <enemy row="1" col="2" color="orange" />
+            <enemy row="1" col="3" color="yellow" />
+            <enemy row="1" col="4" color="orange" />
+            <enemy row="2" col="1" color="orange" />
+            <enemy row="2" col="2" color="yellow" />
+            <enemy row="2" col="3" color="orange" />
+            <enemy row="2" col="4" color="yellow" />
+            <enemy row="3" col="1" color="orange" />
+            <enemy row="3" col="2" color="orange" />
+            <enemy row="3" col="3" color="orange" />
+            <enemy row="3" col="4" color="yellow" />
+            <enemy row="4" col="1" color="orange" />
+            <enemy row="4" col="2" color="rainbow" />
+            <enemy row="4" col="3" color="yellow" />
+            <enemy row="4" col="4" color="yellow" />
+
+        </grid>
+    </wave>
+
+    <wave number="30">
+        <boss
+            x="400"
+            y="100"
+            color="orange"
+            health="250"
+            damage="25"
+            aim="player"
+        />
+    </wave>
+
+    <wave number="31">
+        <grid
+            rows="3"
+            cols="6"
+            start_x="100"
+            start_y="50"
+            spacing_x="120"
+            spacing_y="60"
+            health="25"
+            damage="25"
+        >
+            <enemy row="1" col="1" color="purple" />
+            <enemy row="1" col="2" color="purple" />
+            <enemy row="1" col="3" color="purple" />
+            <enemy row="1" col="4" color="purple" />
+            <enemy row="1" col="5" color="purple" />
+            <enemy row="1" col="6" color="purple" />
+            <enemy row="2" col="1" color="orange" />
+            <enemy row="2" col="2" color="orange" />
+            <enemy row="2" col="3" color="orange" />
+            <enemy row="2" col="4" color="orange" />
+            <enemy row="2" col="5" color="orange" />
+            <enemy row="2" col="6" color="orange" />
+            <enemy row="3" col="1" color="purple" />
+            <enemy row="3" col="2" color="purple" />
+            <enemy row="3" col="3" color="purple" />
+            <enemy row="3" col="4" color="purple" />
+            <enemy row="3" col="5" color="purple" />
+            <enemy row="3" col="6" color="purple" />
+
+        </grid>
+    </wave>
+
+    <wave number="32">
+        <grid
+            rows="3"
+            cols="3"
+            start_x="100"
+            start_y="50"
+            spacing_x="120"
+            spacing_y="60"
+            health="25"
+            damage="25"
+        >
+            <enemy row="1" col="1" color="orange" />
+            <enemy row="1" col="2" color="orange" />
+            <enemy row="1" col="3" color="orange" />
+            <enemy row="2" col="1" color="orange" />
+            <enemy row="2" col="2" color="orange" />
+            <enemy row="2" col="3" color="orange" />
+            <enemy row="3" col="1" color="purple" />
+            <enemy row="3" col="2" color="purple" />
+            <enemy row="3" col="3" color="purple" />
+
+        </grid>
+    </wave>
+
+    <wave number="33">
+        <grid
+            rows="3"
+            cols="3"
+            start_x="100"
+            start_y="50"
+            spacing_x="120"
+            spacing_y="60"
+            health="25"
+            damage="25"
+        >
+            <enemy row="1" col="1" color="purple" />
+            <enemy row="1" col="2" color="orange" />
+            <enemy row="1" col="3" color="purple" />
+            <enemy row="2" col="1" color="orange" />
+            <enemy row="2" col="2" color="orange" />
+            <enemy row="2" col="3" color="orange" />
+            <enemy row="3" col="1" color="purple" />
+            <enemy row="3" col="2" color="purple" />
+            <enemy row="3" col="3" color="purple" />
+
+        </grid>
+    </wave>
+
+    <wave number="34">
+        <grid
+            rows="3"
+            cols="6"
+            start_x="100"
+            start_y="50"
+            spacing_x="120"
+            spacing_y="60"
+            health="25"
+            damage="25"
+        >
+            <enemy row="1" col="1" color="purple" />
+            <enemy row="1" col="2" color="orange" />
+            <enemy row="1" col="3" color="purple" />
+            <enemy row="1" col="4" color="orange" />
+            <enemy row="1" col="5" color="purple" />
+            <enemy row="1" col="6" color="orange" />
+            <enemy row="2" col="1" color="purple" />
+            <enemy row="2" col="2" color="orange" />
+            <enemy row="2" col="3" color="purple" />
+            <enemy row="2" col="4" color="orange" />
+            <enemy row="2" col="5" color="purple" />
+            <enemy row="2" col="6" color="orange" />
+            <enemy row="3" col="1" color="purple" />
+            <enemy row="3" col="2" color="orange" />
+            <enemy row="3" col="3" color="purple" />
+            <enemy row="3" col="4" color="orange" />
+            <enemy row="3" col="5" color="purple" />
+            <enemy row="3" col="6" color="orange" />
+
+        </grid>
+    </wave>
+
+    <wave number="35">
+        <grid
+            rows="4"
+            cols="4"
+            start_x="100"
+            start_y="50"
+            spacing_x="120"
+            spacing_y="60"
+            health="25"
+            damage="25"
+        >
+            <enemy row="1" col="1" color="purple" />
+            <enemy row="1" col="2" color="purple" />
+            <enemy row="1" col="3" color="purple" />
+            <enemy row="1" col="4" color="purple" />
+            <enemy row="2" col="1" color="orange" />
+            <enemy row="2" col="2" color="orange" />
+            <enemy row="2" col="3" color="rainbow" />
+            <enemy row="2" col="4" color="purple" />
+            <enemy row="3" col="1" color="purple" />
+            <enemy row="3" col="2" color="orange" />
+            <enemy row="3" col="3" color="orange" />
+            <enemy row="3" col="4" color="orange" />
+            <enemy row="4" col="1" color="purple" />
+            <enemy row="4" col="2" color="purple" />
+            <enemy row="4" col="3" color="purple" />
+            <enemy row="4" col="4" color="purple" />
+
+        </grid>
+    </wave>
+
+    <wave number="36">
+        <boss
+            x="400"
+            y="100"
+            color="purple"
+            health="300"
+            damage="30"
+            aim="player"
+        />
+    </wave>
+
+    <wave number="37">
+        <grid
+            rows="3"
+            cols="6"
+            start_x="100"
+            start_y="50"
+            spacing_x="120"
+            spacing_y="60"
+            health="30"
+            damage="30"
+        >
+            <enemy row="1" col="1" color="red" />
+            <enemy row="1" col="2" color="blue" />
+            <enemy row="1" col="3" color="green" />
+            <enemy row="1" col="4" color="gree" />
+            <enemy row="1" col="5" color="blue" />
+            <enemy row="1" col="6" color="red" />
+            <enemy row="2" col="1" color="yellow" />
+            <enemy row="2" col="2" color="orange" />
+            <enemy row="2" col="3" color="purple" />
+            <enemy row="2" col="4" color="purple" />
+            <enemy row="2" col="5" color="orange" />
+            <enemy row="2" col="6" color="yellow" />
+            <enemy row="3" col="1" color="purple" />
+            <enemy row="3" col="2" color="purple" />
+            <enemy row="3" col="3" color="rainbow" />
+            <enemy row="3" col="4" color="rainbow" />
+            <enemy row="3" col="5" color="purple" />
+            <enemy row="3" col="6" color="purple" />
+
+        </grid>
+    </wave>
+
+    <wave number="37">
+        <grid
+            rows="3"
+            cols="3"
+            start_x="100"
+            start_y="50"
+            spacing_x="120"
+            spacing_y="60"
+            health="30"
+            damage="30"
+        >
+            <enemy row="1" col="1" color="purple" />
+            <enemy row="1" col="2" color="purple" />
+            <enemy row="1" col="3" color="purple" />
+            <enemy row="2" col="1" color="purple" />
+            <enemy row="2" col="2" color="rainbow" />
+            <enemy row="2" col="3" color="purple" />
+            <enemy row="3" col="1" color="purple" />
+            <enemy row="3" col="2" color="purple" />
+            <enemy row="3" col="3" color="rainbow" />
+
+        </grid>
+    </wave>
+
+    <wave number="39">
+        <grid
+            rows="3"
+            cols="3"
+            start_x="100"
+            start_y="50"
+            spacing_x="120"
+            spacing_y="60"
+            health="30"
+            damage="30"
+        >
+            <enemy row="1" col="1" color="yellow" />
+            <enemy row="1" col="2" color="purple" />
+            <enemy row="1" col="3" color="yellow" />
+            <enemy row="2" col="1" color="purple" />
+            <enemy row="2" col="2" color="purple" />
+            <enemy row="2" col="3" color="yellow" />
+            <enemy row="3" col="1" color="purple" />
+            <enemy row="3" col="2" color="purple" />
+            <enemy row="3" col="3" color="yellow" />
+
+        </grid>
+    </wave>
+
+    <wave number="40">
+        <grid
+            rows="3"
+            cols="6"
+            start_x="100"
+            start_y="50"
+            spacing_x="120"
+            spacing_y="60"
+            health="30"
+            damage="30"
+        >
+            <enemy row="1" col="1" color="yellow" />
+            <enemy row="1" col="2" color="orange" />
+            <enemy row="1" col="3" color="green" />
+            <enemy row="1" col="4" color="purple" />
+            <enemy row="1" col="5" color="purple" />
+            <enemy row="1" col="6" color="yellow" />
+            <enemy row="2" col="1" color="rainbow" />
+            <enemy row="2" col="2" color="purple" />
+            <enemy row="2" col="3" color="yellow" />
+            <enemy row="2" col="4" color="orange" />
+            <enemy row="2" col="5" color="purple" />
+            <enemy row="2" col="6" color="yellow" />
+            <enemy row="3" col="1" color="orange" />
+            <enemy row="3" col="2" color="green" />
+            <enemy row="3" col="3" color="rainbow" />
+            <enemy row="3" col="4" color="green" />
+            <enemy row="3" col="5" color="orange" />
+            <enemy row="3" col="6" color="yellow" />
+
+        </grid>
+    </wave>
+
+    <wave number="41">
+        <grid
+            rows="4"
+            cols="4"
+            start_x="100"
+            start_y="50"
+            spacing_x="120"
+            spacing_y="60"
+            health="30"
+            damage="30"
+        >
+            <enemy row="1" col="1" color="purple" />
+            <enemy row="1" col="2" color="purple" />
+            <enemy row="1" col="3" color="purple" />
+            <enemy row="1" col="4" color="purple" />
+            <enemy row="2" col="1" color="purple" />
+            <enemy row="2" col="2" color="purple" />
+            <enemy row="2" col="3" color="purple" />
+            <enemy row="2" col="4" color="purple" />
+            <enemy row="3" col="1" color="purple" />
+            <enemy row="3" col="2" color="purple" />
+            <enemy row="3" col="3" color="purple" />
+            <enemy row="3" col="4" color="purple" />
+            <enemy row="4" col="1" color="rainbow" />
+            <enemy row="4" col="2" color="rainbow" />
+            <enemy row="4" col="3" color="rainbow" />
+            <enemy row="4" col="4" color="rainbow" />
+        </grid>
+    </wave>
+
+    <wave number="42">
+        <grid
+            rows="2"
+            cols="2"
+            start_x="100"
+            start_y="50"
+            spacing_x="120"
+            spacing_y="60"
+            health="30"
+            damage="30"
+        >
+            <enemy row="1" col="1" color="rainbow" />
+            <enemy row="1" col="2" color="rainbow" />
+            <enemy row="2" col="1" color="rainbow" />
+            <enemy row="2" col="2" color="rainbow" />
+        </grid>
+    </wave>
+
+    <wave number="43">
+        <boss
+            x="400"
+            y="100"
+            color="rainbow"
+            health="350"
+            damage="35"
+            aim="player"
+        />
     </wave>
 </waves>
