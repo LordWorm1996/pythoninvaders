@@ -10,10 +10,10 @@ import skilltree
 import variables
 
 pygame.init()
-music.init_music()
+#music.init_music()
 fonts.init_font()
 
-music.play_theme()
+#music.play_theme()
 screen = pygame.display.set_mode((1000, 800), pygame.RESIZABLE)
 pygame.display.set_caption("Python Invaders")
 
@@ -33,8 +33,9 @@ while running:
 
     pygame.display.flip()
 
-music.stop_theme()
-music.unload_theme()
+
+#music.stop_theme()
+#music.unload_theme()
 fonts.quit_font()
 pygame.quit()
 sys.exit()
