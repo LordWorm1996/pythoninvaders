@@ -15,6 +15,10 @@ class Weapon:
             now = pygame.time.get_ticks()
             time_since_last_shot = now - self.last_shot
             cooldown_ms = self.cooldown * 1000
+
+            if owner is not None and hasattr(owner, "has_status"):
+                if owner.has_status("frenzy"):
+                    cooldown_ms *= 0.4
             
             if time_since_last_shot >= cooldown_ms:
                 if self.pattern is None:

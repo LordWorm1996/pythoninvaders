@@ -24,7 +24,11 @@ class BossLoader:
 
     @classmethod
     def parse_wave(cls, wave_elem):
-        wave_data = {'number': int(wave_elem.get('number', 1)), 'enemies': []}
+        wave_data = {
+            'number': int(wave_elem.get('number', 1)),
+            'enemies': [],
+            'bosses': [],
+        }
 
         grid_elem = wave_elem.find('grid')
         if grid_elem is not None:
@@ -32,6 +36,9 @@ class BossLoader:
 
         for enemy_elem in wave_elem.findall('enemy'):
             wave_data['enemies'].append(cls.parse_enemy(enemy_elem))
+
+        for boss_elem in wave_elem.findall('boss'):
+            wave_data['bosses'].append(cls.parse_boss(boss_elem))
 
         return wave_data
 
@@ -76,4 +83,21 @@ class BossLoader:
 
         if enemy_elem.get('image'):
             enemy['image'] = enemy_elem.get('image')
+        if enemy_elem.get('color'):
+            enemy['color'] = enemy_elem.get('color')
         return enemy
+
+    @classmethod
+    def parse_boss(cls, boss_elem):
+        boss = {
+            'x': int(boss_elem.get('x', 0)),
+            'y': int(boss_elem.get('y', 0)),
+            'health': int(boss_elem.get('health', 1)),
+            'damage': int(boss_elem.get('damage', 1)),
+            'speed': int(boss_elem.get('speed', 0)),
+            'aim': boss_elem.get('aim', 'player'),
+            'color': boss_elem.get('color', 'red'),
+        }
+        if boss_elem.get('attack_pattern'):
+            boss['attack_pattern'] = boss_elem.get('attack_pattern')
+        return boss

@@ -29,7 +29,12 @@ class Bullet(pygame.sprite.Sprite):
     ):
         super().__init__()
         self.image = image or pygame.Surface((5, 15))
-        self.image.fill((255, 255, 0) if owner == 'enemy' else (255, 0, 0))
+        is_enemy_owner = (
+            owner == "enemy"
+            or owner == "boss"
+            or getattr(owner, "is_enemy", False)
+        )
+        self.image.fill((255, 255, 0) if is_enemy_owner else (255, 0, 0))
         self.rect = self.image.get_rect(center=pos)
         self.velocity = normalized(direction, (0, -1)) * speed
         self.damage = damage
