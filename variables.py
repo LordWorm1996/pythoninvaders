@@ -131,3 +131,24 @@ boss_scale = 2.5
 
 enemy_hitbox_scale = 0.7
 boss_hitbox_scale = 0.7
+
+# Secret Key
+SECRET_KEY = b"-Xq3s_-117e4TAaQuEWids4s4Vt-kKHl97ace9FBh-8="
+
+# Paths
+save_path = "save.dat"
+main_theme = "game_assets/sound_files/test_music.mp3"
+
+# Default Save Data
+DEFAULT_DATA = {
+    "difficulty": 0.5,
+    "coins": 0,
+    "high_score": 0,
+    "name": "Jane Doe",
+    "gems": 0,
+    "skilltree_hb": 0,
+    "skilltree_rf": 0,
+    "skilltree_ds": 0,
+    "skilltree_sh": 0,
+    "skilltree_su": 0,
+}
