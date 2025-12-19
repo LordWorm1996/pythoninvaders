@@ -4,9 +4,7 @@ import pygame
 
 import variables
 from background import ScrollingBackground
-from classes.boss import Boss
 from classes.combat_manager import CombatManager
-from classes.debug_menu import DebugMenu
 from classes.enemy_manager import EnemyManager
 from classes.player import Player
 from classes.skill_drop import SkillDrop
@@ -33,23 +31,25 @@ def start_game(screen):
         300,
         player_image,
         bullets_group=player_bullets,
-        max_health=100,
+        max_health=10,
     )
+    player.apply_skilltree_buffs()
     all_sprites = pygame.sprite.Group(player)
 
     score = [
         0
-    ]  # score is a list because we need to pass it to the combat manager (CHATGPT)
+    ]  # score is a list because we need to pass it to the combat manager (idea from CHATGPT)
 
     combat_manager = CombatManager(
         player, player_bullets, enemies, enemy_bullets, enemy_drops, score
     )
     enemy_manager = EnemyManager(enemies, enemy_bullets)
     ui = UI(screen)
-    debug_menu = DebugMenu(screen)
     wave_spawner = WaveSpawner(
         screen.get_width(), screen.get_height(), xml_path="waves.xml"
     )
+
+    ui.start_wave_countdown()
 
     running = True
     while running:
@@ -57,13 +57,15 @@ def start_game(screen):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            debug_menu.handle_event(event, wave_spawner, enemies, enemy_bullets)
 
         bg.update(dt)
         all_sprites.update(dt, screen.get_size())
         player_bullets.update(dt)
         enemy_bullets.update(dt)
         enemy_drops.update(dt, screen.get_size())
+
+        if not wave_spawner.is_wave_active() and ui.is_wave_countdown_complete():
+            wave_spawner.start_wave()
 
         wave_spawner.update(dt, enemies, enemy_bullets_group=enemy_bullets)
         enemy_manager.update(dt, screen.get_size(), player.rect.center)
@@ -89,12 +91,12 @@ def start_game(screen):
         ui.draw_ultimate_bar(player)
         ui.draw_wave_info(wave_spawner.wave_number, len(enemies))
         ui.draw_score(score[0])
-
-        # temp
-        bosses = [e for e in enemies if isinstance(e, Boss)]
-        ui.draw_boss_health_bars(bosses)
-        if not player.is_alive():
-            ui.draw_game_over()
-        # temp
-        debug_menu.draw()
+        ui.draw_boss_health_bars_from_enemies(enemies)
+        
+        if not ui.is_wave_countdown_complete():
+            ui.draw_wave_countdown()
+        
+        if not ui.handle_death_state(player):
+            running = False
+        
         pygame.display.flip()

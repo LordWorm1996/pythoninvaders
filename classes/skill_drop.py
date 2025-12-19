@@ -23,7 +23,7 @@ class SkillDrop(EnemyDrop):
         "shot",
     )
 
-    # CHATGPT START : without this it crashes : TypeError:EnemyDrop.__new__() missing 1 reqquired positional argument
+    # CHATGPT START 
     def __new__(cls, *args, **kwargs):
         return pygame.sprite.Sprite.__new__(cls)
 

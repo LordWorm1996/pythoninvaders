@@ -2,13 +2,13 @@ import random
 
 import pygame
 
-
+#CHATGPT START
 def normalized(direction, fallback):
     vec = pygame.math.Vector2(direction)
     if vec.length_squared() == 0:
         vec = pygame.math.Vector2(fallback)
     return vec.normalize()
-
+#CHATGPT END
 
 def screen_rect():
     surface = pygame.display.get_surface()
@@ -289,7 +289,7 @@ class ThunderBullet(Bullet):
         rng = random.Random(pygame.time.get_ticks() + seed + id(self))
         width, height = self.glow_size
         segments = max(4, height // 4)
-        max_jitter = min(self.jitter, width * 0.45)
+        max_jitter = min(self.jitter, width * 1.0)
         points = []
         for i in range(segments + 1):
             t = i / segments

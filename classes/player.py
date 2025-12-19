@@ -16,6 +16,7 @@ from classes.ultimate_abilities import (
     ULTIMATE_REGISTRY,
 )
 from classes.weapon import Weapon
+from classes.skilltree import skill_tree
 
 
 class Player(Entity):
@@ -26,7 +27,7 @@ class Player(Entity):
         image,
         speed=300,
         bullets_group=None,
-        max_health=100,
+        max_health=10,
         max_ultimate=100,
     ):
         super().__init__(x, y, image.copy())
@@ -72,11 +73,23 @@ class Player(Entity):
         self.dash_velocity = pygame.math.Vector2(0, 0)
         self.dash_time_left_ms = 0.0
 
+        self.shield_available = True
+        self.shield_recharge_time_ms = 30000   
+        self.shield_recharge_start_time = 0
+        self.shield_skill_unlocked = False
+
         self.initialize_weapons()
 
     def take_damage(self, amount):
         if self.is_invincible():
             return False
+
+        if self.shield_skill_unlocked and self.shield_available:
+            self.apply_status("shield", 100)  
+            self.shield_available = False
+            self.shield_recharge_start_time = pygame.time.get_ticks()
+            print(f"SHIELD ACTIVTED: Blocked damage. Recharging for 30 seconds...")
+            return False  
 
         self.health = max(0, self.health - amount)
         self.invincible_until = pygame.time.get_ticks() + self.invincibility_duration
@@ -207,7 +220,6 @@ class Player(Entity):
     def unlock_weapon(self, weapon_name):
         names = [entry.get("name") for entry in self.weapons]
         if weapon_name not in names:
-            print(f"[BossDrop] unknown weapon_id: {weapon_name}")
             return
         if weapon_name in self.unlocked_weapons:
             return
@@ -223,6 +235,10 @@ class Player(Entity):
                     break
 
     def handle_input(self, dt):
+        if not self.is_alive():
+            self.vel.xy = (0, 0)
+            return
+        
         keys = pygame.key.get_pressed()
         move_vector = pygame.math.Vector2(0, 0)
         stunned = self.has_status("stun")
@@ -296,6 +312,14 @@ class Player(Entity):
 
     def update(self, dt, screen_size):
         self.update_status_effects()
+        
+        if self.shield_skill_unlocked and not self.shield_available:
+            now = pygame.time.get_ticks()
+            elapsed = now - self.shield_recharge_start_time
+            if elapsed >= self.shield_recharge_time_ms:
+                self.shield_available = True
+                print("[Shield] Recharged and ready!")
+        
         self.image = self.base_image.copy()
         if self.is_invincible() and not self.has_status("shield"):
             self.draw_invincibility_effect()
@@ -448,6 +472,41 @@ class Player(Entity):
         self.current_weapon_index = 0
         if not self.unlocked_weapons:
             self.unlocked_weapons.add(self.weapons[0]["name"])
+
+    def apply_skilltree_buffs(self):
+        """Apply unlocked skills from skilltree to buff the player."""
+        health_boost_level = skill_tree.skills["health_boost"].current_level
+        if health_boost_level > 0:
+            health_multiplier = 1.0
+            for i in range(health_boost_level):
+                health_multiplier *= 1.25
+            old_max_health = self.max_health
+            self.max_health = int(self.max_health * health_multiplier)
+            health_ratio = self.health / old_max_health if old_max_health > 0 else 1.0
+            self.health = int(self.max_health * health_ratio)
+
+        rapid_fire_level = skill_tree.skills["rapid_fire"].current_level
+        if rapid_fire_level > 0:
+            cooldown_multiplier = 1.0
+            for i in range(rapid_fire_level):
+                cooldown_multiplier *= 0.75
+            for weapon_entry in self.weapons:
+                if "weapon" in weapon_entry:
+                    old_cooldown = weapon_entry["weapon"].cooldown
+                    weapon_entry["weapon"].cooldown *= cooldown_multiplier
+
+        double_shot_level = skill_tree.skills["double_shot"].current_level
+        if double_shot_level > 0:
+            self.shot_count = 2
+
+        shield_level = skill_tree.skills["shield"].current_level
+        if shield_level > 0:
+            self.shield_skill_unlocked = True
+
+        super_shot_level = skill_tree.skills["super_shot"].current_level
+        if super_shot_level > 0:
+            old_damage_multiplier = self.damage_multiplier
+            self.damage_multiplier *= 3.0
 
     def cycle_weapon(self):
         if not self.weapons:
