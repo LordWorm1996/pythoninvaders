@@ -14,12 +14,7 @@ from classes.skilltree import (
 game_data = save.load_game()
 game_data = save.load_game()
 old_high_score = game_data.get("high_score", 0)
-
-# Handle legacy list-based saves
-if isinstance(old_high_score, list):
-    old_high_score = old_high_score[0]
-
-current_score = variables.get_score()
+current_score = variables.get_score()[0]
 new_high_score = max(old_high_score, current_score)
 
 

@@ -4,7 +4,6 @@ from classes.bullet import Bullet
 
 
 class UltimateBase:
-    """Base class for all player ultimate abilities."""
 
     id = ""
     display_name = ""
@@ -32,7 +31,7 @@ class UltimateBase:
     def activate(self, player, context):
         raise NotImplementedError
 
-
+# CHATGPT START
 class RadialBurstUltimate(UltimateBase):
     """Fire several rings of bullets in all directions."""
 
@@ -75,7 +74,7 @@ class RadialBurstUltimate(UltimateBase):
 
         self.mark_used(now)
 
-
+# CHATGPT END
 class HealUltimate(UltimateBase):
     id = "heal"
     display_name = "Heal"

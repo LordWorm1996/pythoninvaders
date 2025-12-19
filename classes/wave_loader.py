@@ -2,7 +2,7 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 
 
-class BossLoader:
+class WaveLoader:
     pattern_registry = {}
 
     @classmethod
