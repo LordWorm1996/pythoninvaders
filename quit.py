@@ -12,17 +12,25 @@ from classes.skilltree import (
 )
 
 game_data = save.load_game()
+game_data = save.load_game()
 old_high_score = game_data.get("high_score", 0)
+
+# Handle legacy list-based saves
+if isinstance(old_high_score, list):
+    old_high_score = old_high_score[0]
+
 current_score = variables.get_score()
 new_high_score = max(old_high_score, current_score)
 
 
-def quit_game():
+def quit_game(username_input):
+    username = username_input.get_value()
     save.save_game(
         {
             "difficulty": variables.get_difficulty(),
             "coins": get_coins(),
             "high_score": new_high_score,
+            "name": username,
             "gems": variables.get_gem(),
             "skilltree_hb": get_skill_level("health_boost"),
             "skilltree_rf": get_skill_level("rapid_fire"),

@@ -12,6 +12,7 @@ DEFAULT_DATA = {
     "difficulty": 0.5,
     "coins": 0,
     "high_score": 0,
+    "name": "Jane Doe",
     "gems": 0,
     "skilltree_hb": 0,
     "skilltree_rf": 0,
