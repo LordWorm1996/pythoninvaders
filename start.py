@@ -10,7 +10,7 @@ from classes.skilltree import (
 )
 
 
-def start_game():
+def start_game() -> str:
     pygame.init()
     music.init_music()
     fonts.init_font()
@@ -19,6 +19,7 @@ def start_game():
     variables.difficulty = game_data.get("difficulty", 0.5)
     add_coins(game_data.get("coins", 0))
     variables.score = game_data.get("high_score", 0)
+    name = game_data.get("name", "Jane Doe")
     variables.gem_inv = game_data.get("gems", 0)
     load_skill("health_boost", game_data.get("skilltree_hb", 0))
     load_skill("rapid_fire", game_data.get("skilltree_rf", 0))
@@ -27,3 +28,5 @@ def start_game():
     load_skill("super_shot", game_data.get("skilltree_su", 0))
 
     music.play_theme()
+
+    return name

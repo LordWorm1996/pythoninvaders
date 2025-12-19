@@ -7,7 +7,7 @@ import start
 import variables
 from classes.skilltree import skilltree_menu
 
-start.start_game()
+name = start.start_game()
 
 screen = pygame.display.set_mode((1000, 800), pygame.RESIZABLE)
 pygame.display.set_caption("Python Invaders")
@@ -18,7 +18,7 @@ menu = pygame_menu.Menu(
 
 menu.add.label(f"High Score: {variables.get_score()}")
 menu.add.label(f"Gems (Revives): {variables.get_gem()}")
-menu.add.text_input("Name :", default="Jane Doe")
+username = menu.add.text_input("Name :", default=name)
 menu.add.button("Play", lambda _=None: gameloop.start_game(screen))
 menu.add.range_slider(
     "Select Difficulty",
@@ -30,7 +30,7 @@ menu.add.range_slider(
     onchange=lambda x: variables.change_difficulty(x),
 )
 menu.add.button("Skilltree", skilltree_menu(screen))
-menu.add.button("Quit", quit.quit_game)
+menu.add.button("Quit", quit.quit_game, username)
 
 running = True
 is_paused = False

@@ -27,15 +27,15 @@ coin = 1
 gem = 1
 
 # Score Logic
-score = [0]
+score = 0
 
 
-def add_score(value: list):
+def add_score(value: int):
     global score
     score = value
 
 
-def get_score():
+def get_score() -> int:
     return score
 
 

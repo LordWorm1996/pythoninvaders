@@ -37,9 +37,7 @@ def start_game(screen):
     )
     all_sprites = pygame.sprite.Group(player)
 
-    score = [
-        0
-    ]  # score is a list because we need to pass it to the combat manager (CHATGPT)
+    score = 0
 
     combat_manager = CombatManager(
         player, player_bullets, enemies, enemy_bullets, enemy_drops, score
@@ -88,7 +86,7 @@ def start_game(screen):
         ui.draw_health_bar(player)
         ui.draw_ultimate_bar(player)
         ui.draw_wave_info(wave_spawner.wave_number, len(enemies))
-        ui.draw_score(score[0])
+        ui.draw_score(variables.get_score())
 
         # temp
         bosses = [e for e in enemies if isinstance(e, Boss)]
