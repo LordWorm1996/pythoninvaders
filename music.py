@@ -1,6 +1,8 @@
 import pygame
 
-main_theme = "game_assets/sound_files/test_music.mp3"
+import variables
+
+main_theme = variables.main_theme
 
 
 def init_music():

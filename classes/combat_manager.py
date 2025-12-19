@@ -21,7 +21,7 @@ class CombatManager:
         self.enemies = enemies
         self.enemy_bullets = enemy_bullets
         self.enemy_drops = enemy_drops
-        self.score = score if score is not None else [0]
+        self.score = score if score is not None else 0
 
     def update(self):
         self.handle_player_bullets_vs_enemies()
@@ -46,7 +46,7 @@ class CombatManager:
                 if hasattr(bullet, "stick_to"):
                     bullet.stick_to(enemy)
                 if destroyed:
-                    self.score[0] += 1
+                    self.score += 1
                     variables.add_score(self.score)
                     self.player.charge_ultimate(1)
                     if drop is not None and self.enemy_drops is not None:
@@ -168,7 +168,7 @@ class CombatManager:
                         destroyed, drop = enemy.take_damage(effect["tick_damage"])
                         if destroyed:
                             enemy_dead = True
-                            self.score[0] += 1
+                            self.score += 1
                             variables.add_score(self.score)
                             self.player.charge_ultimate(1)
                             if drop is not None and self.enemy_drops is not None:
@@ -204,7 +204,7 @@ class CombatManager:
             dmg_amount = max(1, int(round(damage)))
             destroyed, drop = target.take_damage(dmg_amount)
             if destroyed:
-                self.score[0] += 1
+                self.score += 1
                 variables.add_score(self.score)
                 self.player.charge_ultimate(1)
                 if drop is not None and self.enemy_drops is not None:
